@@ -1,5 +1,7 @@
 import { combineReducers } from "redux";
 
+import brandReducer from "./brand/brand.reducer";
+
 export default combineReducers({
-    toRemove: {}
+    brands: brandReducer
 });

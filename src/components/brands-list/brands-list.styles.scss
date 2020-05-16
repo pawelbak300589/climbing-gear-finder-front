@@ -1,0 +1,9 @@
+.brands-list {
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+
+    .list {
+        margin: 10px 0;
+    }
+}

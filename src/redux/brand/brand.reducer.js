@@ -1,7 +1,8 @@
 import { brandActionTypes } from "./brand.types";
+import BRANDS_DATA from "./brand.data";
 
 const INITIAL_STATE = {
-    brands: []
+    brands: BRANDS_DATA
 };
 
 const brandReducer = (state = INITIAL_STATE, action) => {
