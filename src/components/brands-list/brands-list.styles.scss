@@ -5,5 +5,14 @@
 
     .list {
         margin: 10px 0;
+
+        .list-header {
+            display: flex;
+            justify-content: space-between;
+
+            h2 {
+                margin: auto 0;
+            }
+        }
     }
 }
