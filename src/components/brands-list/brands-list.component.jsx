@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import { createStructuredSelector } from "reselect";
 
 import CustomButton from "../custom-button/custom-button.component";
-import ListItem from "../list-item/list-item";
+import ListItem from "../list-item/list-item.component";
 
 import { selectBrandsList } from "../../redux/brand/brand.selectors";
 
