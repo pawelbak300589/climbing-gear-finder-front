@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from "react-router-dom";
 
-import './list-item.scss';
+import './list-item.styles.scss';
 
 const ListItem = ({ item }) => {
     return (
