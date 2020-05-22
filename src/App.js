@@ -6,7 +6,8 @@ import history from "./history";
 import Header from "./components/header/header.component";
 import HomePage from "./pages/homepage/homepage.component";
 import BrandsPage from "./pages/brands/brands.component";
-import LoginAndRegisterPage from "./pages/login-and-register/login-and-register.component";
+import LoginPage from "./pages/login/login.component";
+import RegisterPage from "./pages/register/register.component";
 
 import './App.css';
 
@@ -18,7 +19,8 @@ function App() {
                 <Switch>
                     <Route exact path="/" component={HomePage} />
                     <Route path="/brands" component={BrandsPage} />
-                    <Route exact path="/login" component={LoginAndRegisterPage} />
+                    <Route exact path="/login" component={LoginPage} />
+                    <Route exact path="/register" component={RegisterPage} />
                 </Switch>
             </Router>
         </div>

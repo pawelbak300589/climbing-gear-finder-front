@@ -1,19 +1,22 @@
 import React, { useState } from 'react';
+import { connect } from 'react-redux';
 
 import FormInput from "../form-input/form-input.component";
 import CustomButton from "../../custom-button/custom-button.component";
 
+import { register } from "../../../redux/auth/auth.actions";
+
 import './register-form.styles.scss';
 
-const RegisterForm = () => {
+const RegisterForm = ({ registerStart }) => {
     const [userCredentials, setUserCredentials] = useState({
-        name: '',
+        userName: '',
         email: '',
         password: '',
         confirmPassword: '',
     });
 
-    const { name, email, password, confirmPassword } = userCredentials;
+    const { userName, email, password, confirmPassword } = userCredentials;
 
     const handleSubmit = async event => {
         event.preventDefault();
@@ -23,7 +26,7 @@ const RegisterForm = () => {
             return;
         }
 
-        // signUpStart({ email, password, name });
+        registerStart({ name: userName, email, password, password_confirmation: confirmPassword });
     };
 
     const handleChange = (event) => {
@@ -39,8 +42,8 @@ const RegisterForm = () => {
             <form onSubmit={handleSubmit}>
                 <FormInput
                     type="text"
-                    name="name"
-                    value={name}
+                    name="userName"
+                    value={userName}
                     onChange={handleChange}
                     label="Your Name"
                     required
@@ -75,4 +78,8 @@ const RegisterForm = () => {
     );
 };
 
-export default RegisterForm;
+const mapDispatchToProps = dispatch => ({
+    registerStart: (userRegisterCredentials) => dispatch(register(userRegisterCredentials))
+});
+
+export default connect(null, mapDispatchToProps)(RegisterForm);

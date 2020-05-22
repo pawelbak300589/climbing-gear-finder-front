@@ -28,7 +28,10 @@ const Header = ({ currentUser, logout }) => {
                         currentUser ?
                             <div className="option" onClick={logout}>Logout</div>
                             :
-                            <Link className="option" to="/login">Login & Register</Link>
+                            <>
+                                <Link className="option" to="/login">Login</Link>
+                                <Link className="option" to="/register">Register</Link>
+                            </>
                     }
                 </div>
             </nav>

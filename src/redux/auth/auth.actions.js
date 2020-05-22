@@ -23,7 +23,7 @@ export const login = (userLoginCredentials) => {
     };
 };
 
-export const logout = (userLoginCredentials) => {
+export const logout = () => {
 
     return async (dispatch, getState) => {
         console.log(getState());
@@ -38,6 +38,29 @@ export const logout = (userLoginCredentials) => {
             })
             .catch((error) => {
                 console.log(error.message);
+            });
+    };
+};
+
+export const register = (userRegisterCredentials) => {
+    const request = () => ({ type: authActionTypes.REGISTER_REQUEST });
+    const success = (user) => ({ type: authActionTypes.REGISTER_SUCCESS, payload: user });
+    const failure = (error) => ({ type: authActionTypes.REGISTER_FAILURE, payload: error });
+
+    return async dispatch => {
+        dispatch(request());
+
+        console.log(userRegisterCredentials);
+
+        backend.post('/auth/register', userRegisterCredentials)
+            .then(({ data }) => {
+                console.log(data);
+                dispatch(success(data));
+                history.push('/');
+            })
+            .catch((error) => {
+                console.log(error.message);
+                dispatch(failure(error.message));
             });
     };
 };
