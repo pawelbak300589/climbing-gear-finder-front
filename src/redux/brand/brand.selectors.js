@@ -7,6 +7,11 @@ export const selectBrandsList = createSelector(
     (brands) => brands.items
 );
 
+export const selectBrandsTotal = createSelector(
+    [selectBrands],
+    (brands) => brands.items ? brands.items.length : 0
+);
+
 export const selectIsLoading = createSelector(
     [selectBrands],
     (brands) => brands.loading

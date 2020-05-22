@@ -6,11 +6,11 @@ import CustomButton from "../custom-button/custom-button.component";
 import ListItem from "../list-item/list-item.component";
 
 import { getAll } from "../../redux/brand/brand.actions";
-import { selectBrandsList, selectIsLoading } from "../../redux/brand/brand.selectors";
+import { selectBrandsList, selectIsLoading, selectBrandsTotal } from "../../redux/brand/brand.selectors";
 
 import './brands-list.styles.scss';
 
-const BrandsList = ({ brands, match, loading, getAllBrands }) => {
+const BrandsList = ({ brands, match, loading, brandsTotal, getAllBrands }) => {
 
     useEffect(() => {
         if (!brands) {
@@ -27,6 +27,7 @@ const BrandsList = ({ brands, match, loading, getAllBrands }) => {
                         Create New Brand
                     </CustomButton>
                 </div>
+                <p>Total brands: {brandsTotal}</p>
                 {
                     loading || !brands ?
                         <div>Loading...</div>
@@ -40,6 +41,7 @@ const BrandsList = ({ brands, match, loading, getAllBrands }) => {
 const mapStateToProps = createStructuredSelector({
     brands: selectBrandsList,
     loading: selectIsLoading,
+    brandsTotal: selectBrandsTotal,
 });
 
 const mapDispatchToProps = dispatch => ({
