@@ -8,6 +8,7 @@ import HomePage from "./pages/homepage/homepage.component";
 import BrandsPage from "./pages/brands/brands.component";
 import LoginPage from "./pages/login/login.component";
 import RegisterPage from "./pages/register/register.component";
+import DashboardPage from "./pages/dashboard/dashboard.component";
 
 import './App.css';
 
@@ -21,6 +22,7 @@ function App() {
                     <Route path="/brands" component={BrandsPage} />
                     <Route exact path="/login" component={LoginPage} />
                     <Route exact path="/register" component={RegisterPage} />
+                    <Route exact path="/dashboard" component={DashboardPage} />
                 </Switch>
             </Router>
         </div>
