@@ -4,9 +4,7 @@ import { connect } from 'react-redux';
 import CustomButton from "../../custom-button/custom-button.component";
 import FormInput from "../form-input/form-input.component";
 
-import { createBrand } from "../../../redux/brand/brand.actions";
-
-const CreateBrandForm = ({ createBrand }) => {
+const CreateBrandForm = ( ) => {
     const handleSubmit = (event) => {
         event.preventDefault();
     }
@@ -55,7 +53,7 @@ const CreateBrandForm = ({ createBrand }) => {
 };
 
 const mapDispatchToProps = dispatch => ({
-    createBrand: () => dispatch(createBrand())
+    // createBrand: () => dispatch(createBrand())
 });
 
 export default connect(null, mapDispatchToProps)(CreateBrandForm);

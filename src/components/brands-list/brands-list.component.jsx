@@ -1,15 +1,23 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { connect } from "react-redux";
 import { createStructuredSelector } from "reselect";
 
 import CustomButton from "../custom-button/custom-button.component";
 import ListItem from "../list-item/list-item.component";
 
-import { selectBrandsList } from "../../redux/brand/brand.selectors";
+import { getAll } from "../../redux/brand/brand.actions";
+import { selectBrandsList, selectIsLoading } from "../../redux/brand/brand.selectors";
 
 import './brands-list.styles.scss';
 
-const BrandsList = ({ brands, match }) => {
+const BrandsList = ({ brands, match, loading, getAllBrands }) => {
+
+    useEffect(() => {
+        if (!brands) {
+            getAllBrands();
+        }
+    }, [getAllBrands]);
+
     return (
         <div className="brands-list">
             <div className="list">
@@ -20,7 +28,9 @@ const BrandsList = ({ brands, match }) => {
                     </CustomButton>
                 </div>
                 {
-                    brands.map(brand => (<ListItem key={brand.id} item={brand} />))
+                    loading || !brands ?
+                        <div>Loading...</div>
+                        : brands.map(brand => (<ListItem key={brand.id} item={brand} />))
                 }
             </div>
         </div>
@@ -29,6 +39,11 @@ const BrandsList = ({ brands, match }) => {
 
 const mapStateToProps = createStructuredSelector({
     brands: selectBrandsList,
+    loading: selectIsLoading,
 });
 
-export default connect(mapStateToProps)(BrandsList);
+const mapDispatchToProps = dispatch => ({
+    getAllBrands: () => dispatch(getAll())
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(BrandsList);

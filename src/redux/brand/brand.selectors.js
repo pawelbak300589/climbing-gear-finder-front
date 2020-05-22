@@ -4,5 +4,10 @@ const selectBrands = state => state.brands;
 
 export const selectBrandsList = createSelector(
     [selectBrands],
-    (list) => list.brands
+    (brands) => brands.items
+);
+
+export const selectIsLoading = createSelector(
+    [selectBrands],
+    (brands) => brands.loading
 );
