@@ -21,6 +21,7 @@ const Header = ({ currentUser, logout }) => {
                     {/*<Logo className="logo" />*/}
                 </Link>
                 <div className="options">
+                    {currentUser ? <Link className="option" to="/dashboard">Dashboard</Link> : ''}
                     <Link className="option" to="/brands">
                         Brands
                     </Link>
