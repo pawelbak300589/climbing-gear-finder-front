@@ -2,7 +2,7 @@ import { brandActionTypes } from "./brand.types";
 
 const INITIAL_STATE = {
     loading: false,
-    items: null,
+    items: [],
     error: null
 };
 
@@ -13,10 +13,11 @@ const brandReducer = (state = INITIAL_STATE, action) => {
         case brandActionTypes.CREATE_REQUEST:
         case brandActionTypes.UPDATE_REQUEST:
         case brandActionTypes.DELETE_REQUEST:
+        case brandActionTypes.BLACKLIST_REQUEST:
+        case brandActionTypes.MOVE_TO_MAPPING_REQUEST:
             return {
                 ...state,
                 loading: true,
-                items: null,
                 error: null
             };
         case brandActionTypes.GETALL_SUCCESS:
@@ -32,15 +33,32 @@ const brandReducer = (state = INITIAL_STATE, action) => {
             return {
                 ...state,
                 loading: false,
-                items: null,
+                items: [],
                 error: action.payload
             };
-            // TODO: case brandActionTypes.CREATE_SUCCESS:
-            // TODO: case brandActionTypes.CREATE_FAILURE:
-            // TODO: case brandActionTypes.UPDATE_SUCCESS:
-            // TODO: case brandActionTypes.UPDATE_FAILURE:
-            // TODO: case brandActionTypes.DELETE_SUCCESS:
-            // TODO: case brandActionTypes.DELETE_FAILURE:
+        case brandActionTypes.CREATE_SUCCESS:
+            return {
+                ...state,
+                loading: false,
+                items: [...state.items, action.payload],
+                error: null
+            };
+        case brandActionTypes.CREATE_FAILURE:
+            return {
+                ...state,
+                loading: false,
+                error: action.payload
+            };
+        // TODO: case brandActionTypes.UPDATE_SUCCESS:
+        // TODO: case brandActionTypes.UPDATE_FAILURE:
+        // TODO: case brandActionTypes.DELETE_SUCCESS:
+        // TODO: case brandActionTypes.DELETE_FAILURE:
+        // TODO:
+        // TODO: case brandActionTypes.BLACKLIST_SUCCESS:
+        // TODO: case brandActionTypes.BLACKLIST_FAILURE:
+        // TODO:
+        // TODO: case brandActionTypes.MOVE_TO_MAPPING_SUCCESS:
+        // TODO: case brandActionTypes.MOVE_TO_MAPPING_FAILURE:
         default:
             return state;
     }

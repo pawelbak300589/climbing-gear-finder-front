@@ -10,7 +10,7 @@ export const login = (userLoginCredentials) => {
     return async dispatch => {
         dispatch(request());
 
-        backend.post('/auth/login', userLoginCredentials)
+        await backend.post('/auth/login', userLoginCredentials)
             .then(({ data }) => {
                 console.log(data);
                 dispatch(success(data));
@@ -26,8 +26,7 @@ export const login = (userLoginCredentials) => {
 export const logout = () => {
 
     return async (dispatch, getState) => {
-        console.log(getState());
-        backend.get('/auth/logout', {
+        await backend.get('/auth/logout', {
             headers: {
                 Authorization: getState().auth.currentUser.token_type + ' ' + getState().auth.currentUser.access_token
             }
@@ -50,9 +49,7 @@ export const register = (userRegisterCredentials) => {
     return async dispatch => {
         dispatch(request());
 
-        console.log(userRegisterCredentials);
-
-        backend.post('/auth/register', userRegisterCredentials)
+        await backend.post('/auth/register', userRegisterCredentials)
             .then(({ data }) => {
                 console.log(data);
                 dispatch(success(data));
