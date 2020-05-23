@@ -43,14 +43,20 @@ const brandReducer = (state = INITIAL_STATE, action) => {
                 items: [...state.items, action.payload],
                 error: null
             };
+        case brandActionTypes.UPDATE_SUCCESS:
+            return {
+                ...state,
+                loading: false,
+                items: [...state.items, action.payload], // TODO: this is wrong - you need to use array .map function?
+                error: null
+            };
         case brandActionTypes.CREATE_FAILURE:
+        case brandActionTypes.UPDATE_FAILURE:
             return {
                 ...state,
                 loading: false,
                 error: action.payload
             };
-        // TODO: case brandActionTypes.UPDATE_SUCCESS:
-        // TODO: case brandActionTypes.UPDATE_FAILURE:
         // TODO: case brandActionTypes.DELETE_SUCCESS:
         // TODO: case brandActionTypes.DELETE_FAILURE:
         // TODO:

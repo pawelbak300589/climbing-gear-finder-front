@@ -39,8 +39,8 @@ export const getOne = (brandId) => {
             }
         })
             .then(({ data }) => {
+                console.log(JSON.parse(data));
                 dispatch(success(JSON.parse(data)));
-                history.push('/brands');
             })
             .catch((error) => {
                 console.log(error.message);
@@ -58,6 +58,30 @@ export const create = (formData) => {
         dispatch(request());
 
         await backend.post('/brands', formData, {
+            headers: {
+                Authorization: getState().auth.currentUser.token_type + ' ' + getState().auth.currentUser.access_token
+            }
+        })
+            .then(({ data }) => {
+                dispatch(success(JSON.parse(data)));
+                history.push('/brands');
+            })
+            .catch((error) => {
+                console.log(error.message);
+                dispatch(failure(error.message));
+            });
+    };
+};
+
+export const update = (id, formData) => {
+    const request = () => ({ type: brandActionTypes.UPDATE_REQUEST });
+    const success = (brand) => ({ type: brandActionTypes.UPDATE_SUCCESS, payload: brand });
+    const failure = (error) => ({ type: brandActionTypes.UPDATE_FAILURE, payload: error });
+
+    return async (dispatch, getState) => {
+        dispatch(request());
+
+        await backend.patch('/brands/' + id, formData, {
             headers: {
                 Authorization: getState().auth.currentUser.token_type + ' ' + getState().auth.currentUser.access_token
             }

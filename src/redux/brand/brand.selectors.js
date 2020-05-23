@@ -7,6 +7,11 @@ export const selectBrandsList = createSelector(
     (brands) => brands.items
 );
 
+export const selectBrand = (brandId) => createSelector(
+    [selectBrandsList],
+    (items) => items.filter(item => item.id === Number(brandId))
+);
+
 export const selectBrandsTotal = createSelector(
     [selectBrands],
     (brands) => brands.items ? brands.items.length : 0

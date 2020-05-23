@@ -4,7 +4,7 @@ import { Route } from 'react-router-dom';
 
 import BrandsListContainer from "../../components/brands-list/brands-list.container";
 import CreateBrandPage from "./create-brand.component";
-import EditBrandPage from "./edit-brand.component";
+import EditBrandPageContainer from "./edit-brands.container";
 
 import { getAll } from "../../redux/brand/brand.actions";
 
@@ -17,7 +17,7 @@ const BrandsPage = ({ match, getAllBrands }) => {
         <div className="brands-page">
             <Route exact path={`${match.path}/`} component={BrandsListContainer} />
             <Route path={`${match.path}/create`} component={CreateBrandPage} />
-            <Route path={`${match.path}/edit/:brandId`} component={EditBrandPage} />
+            <Route path={`${match.path}/edit/:brandId`} component={EditBrandPageContainer} />
         </div>
     );
 };
