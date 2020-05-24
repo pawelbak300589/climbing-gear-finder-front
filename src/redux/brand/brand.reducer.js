@@ -47,7 +47,15 @@ const brandReducer = (state = INITIAL_STATE, action) => {
             return {
                 ...state,
                 loading: false,
-                items: [...state.items, action.payload], // TODO: this is wrong - you need to use array .map function?
+                items: state.items.map((item) => {
+                    if (item.id === action.payload.id) {
+                        return { // return updated item
+                            ...item,
+                            ...action.payload
+                        };
+                    }
+                    return item; // return item without change
+                }),
                 error: null
             };
         case brandActionTypes.CREATE_FAILURE:
