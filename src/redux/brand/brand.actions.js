@@ -75,7 +75,7 @@ export const create = (formData) => {
 
 export const update = (id, formData) => {
     const request = () => ({ type: brandActionTypes.UPDATE_REQUEST });
-    const success = (brand) => ({ type: brandActionTypes.UPDATE_SUCCESS, payload: brand });
+    const success = (brandId) => ({ type: brandActionTypes.UPDATE_SUCCESS, payload: brandId });
     const failure = (error) => ({ type: brandActionTypes.UPDATE_FAILURE, payload: error });
 
     return async (dispatch, getState) => {
@@ -87,7 +87,31 @@ export const update = (id, formData) => {
             }
         })
             .then(({ data }) => {
-                dispatch(success(JSON.parse(data)));
+                dispatch(success(data));
+                history.push('/brands');
+            })
+            .catch((error) => {
+                console.log(error.message);
+                dispatch(failure(error.message));
+            });
+    };
+};
+
+export const remove = (id) => {
+    const request = () => ({ type: brandActionTypes.DELETE_REQUEST });
+    const success = (brandId) => ({ type: brandActionTypes.DELETE_SUCCESS, payload: brandId });
+    const failure = (error) => ({ type: brandActionTypes.DELETE_FAILURE, payload: error });
+
+    return async (dispatch, getState) => {
+        dispatch(request());
+
+        await backend.delete('/brands/' + id, {
+            headers: {
+                Authorization: getState().auth.currentUser.token_type + ' ' + getState().auth.currentUser.access_token
+            }
+        })
+            .then(({ data }) => {
+                dispatch(success(Number(data)));
                 history.push('/brands');
             })
             .catch((error) => {

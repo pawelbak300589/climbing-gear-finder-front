@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from "react-redux";
 import { createStructuredSelector } from "reselect";
+import { Link } from "react-router-dom";
 
 import CustomButton from "../custom-button/custom-button.component";
 import ListItem from "../list-item/list-item.component";
@@ -10,6 +11,14 @@ import { selectBrandsList, selectBrandsTotal } from "../../redux/brand/brand.sel
 import './brands-list.styles.scss';
 
 const BrandsList = ({ brands, match, brandsTotal }) => {
+    const itemActions = ({ id }) => (
+        <>
+            <Link className="action blue" to={`brands/edit/${id}`}>edit</Link>
+            <div className="action blueviolet" onClick={() => console.log('test')}>move</div>
+            <div className="action" onClick={() => console.log('blacklist')}>blacklist</div>
+            <Link className="action red remove-button" to={`brands/delete/${id}`}>&#10005;</Link>
+        </>
+    );
 
     return (
         <div className="brands-list">
@@ -27,7 +36,8 @@ const BrandsList = ({ brands, match, brandsTotal }) => {
                 </div>
                 <p>Total brands: {brandsTotal}</p>
                 {
-                    brands.map(brand => (<ListItem key={brand.id} item={brand} />))
+                    brands.map(brand => (
+                        <ListItem key={brand.id} item={brand} actions={itemActions(brand)} />))
                 }
             </div>
         </div>
