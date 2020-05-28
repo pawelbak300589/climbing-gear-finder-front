@@ -14,7 +14,7 @@ export const login = (userLoginCredentials) => {
             .then(({ data }) => {
                 console.log(data);
                 dispatch(success(data));
-                history.push('/');
+                history.push('/dashboard');
             })
             .catch((error) => {
                 console.log(error.message);
