@@ -8,7 +8,7 @@ const CustomButton = ({ children, type = "button", colour = "black", ...otherPro
     if (type === 'button' || type === 'submit') {
         content = <button className={`${colour} custom-button`} {...otherProps}>{children}</button>;
     } else if (type === 'link') {
-        content = <Link className={`${colour} custom-button`} {...otherProps}>Create New Brand</Link>;
+        content = <Link className={`${colour} custom-button`} {...otherProps}>{children}</Link>;
     }
 
     return (
