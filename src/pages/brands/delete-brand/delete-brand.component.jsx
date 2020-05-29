@@ -1,14 +1,13 @@
 import React from 'react';
 import { connect } from "react-redux";
-import { Link } from "react-router-dom";
 
-import history from "../../history";
+import history from "../../../history";
 
-import Modal from "../../components/modal/modal.component";
-import CustomButton from "../../components/custom-button/custom-button.component";
+import Modal from "../../../components/modal/modal.component";
+import CustomButton from "../../../components/custom-button/custom-button.component";
 
-import { selectBrand } from "../../redux/brand/brand.selectors";
-import { remove } from "../../redux/brand/brand.actions";
+import { selectBrand } from "../../../redux/brand/brand.selectors";
+import { remove } from "../../../redux/brand/brand.actions";
 
 const DeleteBrandPage = ({ brand, removeBrand }) => {
 

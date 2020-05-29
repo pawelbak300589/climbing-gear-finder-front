@@ -1,8 +1,8 @@
 import React from 'react';
 
-import CreateBrandForm from "../../components/forms/create-brand-form/create-brand-form.component";
+import CreateBrandForm from "../../../components/forms/create-brand-form/create-brand-form.component";
 
-import './brands.styles.scss';
+import '../brands.styles.scss';
 
 const CreateBrandPage = () => {
     return (

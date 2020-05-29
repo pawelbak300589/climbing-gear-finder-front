@@ -1,9 +1,9 @@
 import React from 'react';
 import { connect } from "react-redux";
 
-import EditBrandForm from "../../components/forms/edit-brand-form/edit-brand-form.component";
+import EditBrandForm from "../../../components/forms/edit-brand-form/edit-brand-form.component";
 
-import { selectBrand } from "../../redux/brand/brand.selectors";
+import { selectBrand } from "../../../redux/brand/brand.selectors";
 
 const EditBrandPage = ({ brand }) => {
     return (
