@@ -6,6 +6,7 @@ import BrandsListContainer from "../../components/brands-list/brands-list.contai
 import CreateBrandPage from "./create-brand/create-brand.component";
 import EditBrandPageContainer from "./edit-brand/edit-brand.container";
 import DeleteBrandPageContainer from "./delete-brand/delete-brand.container";
+import ShowBrandPageContainer from "./show-brand/show-brand.container";
 
 import { getAll } from "../../redux/brand/brand.actions";
 
@@ -18,7 +19,7 @@ const BrandsPage = ({ match, getAllBrands }) => {
         <div className="brands-page">
             <Route exact path={`${match.path}/`} component={BrandsListContainer} />
             <Route path={`${match.path}/create`} component={CreateBrandPage} />
-            <Route path={`${match.path}/show/:brandId`} component={DeleteBrandPageContainer} />
+            <Route path={`${match.path}/show/:brandId`} component={ShowBrandPageContainer} />
             <Route path={`${match.path}/edit/:brandId`} component={EditBrandPageContainer} />
             <Route path={`${match.path}/delete/:brandId`} component={DeleteBrandPageContainer} />
         </div>

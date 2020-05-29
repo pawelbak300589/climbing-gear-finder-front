@@ -8,15 +8,23 @@ import CustomButton from "../../../components/custom-button/custom-button.compon
 
 import { selectBrand } from "../../../redux/brand/brand.selectors";
 import { remove } from "../../../redux/brand/brand.actions";
+import BrandDetails from "../../../components/brand-details/brand-details.component";
 
 const DeleteBrandPage = ({ brand, removeBrand }) => {
+    const renderBrandDetails = () => {
+        if (brand) {
+            return (
+                <BrandDetails brand={brand} />
+            );
+        }
+    };
 
     const renderModal = () => {
         if (brand) {
             const renderActions = () => {
                 return (
                     <>
-                        <CustomButton type="link" to="/brands">Cancel</CustomButton>
+                        <CustomButton type="link" to={`/brands/show/${brand.id}`}>Cancel</CustomButton>
                         <CustomButton onClick={() => removeBrand(brand.id)} colour="red">Delete</CustomButton>
                     </>
                 );
@@ -27,7 +35,7 @@ const DeleteBrandPage = ({ brand, removeBrand }) => {
                     title={`Delete brand: ${brand.name}`}
                     content={`Are you sure you want to delete ${brand.name}?`}
                     actions={renderActions()}
-                    onDismiss={() => history.push('/brands')}
+                    onDismiss={() => history.push(`/brands/show/${brand.id}`)}
                 />
             );
         }
@@ -35,6 +43,7 @@ const DeleteBrandPage = ({ brand, removeBrand }) => {
 
     return (
         <div>
+            {renderBrandDetails()}
             {renderModal()}
         </div>
     );
