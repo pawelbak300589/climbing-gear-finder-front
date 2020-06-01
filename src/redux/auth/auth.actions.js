@@ -12,6 +12,7 @@ export const login = (userLoginCredentials) => {
 
         await backend.post('/auth/login', userLoginCredentials)
             .then(({ data }) => {
+                console.log(data);
                 dispatch(success(data));
                 history.push('/dashboard');
             })

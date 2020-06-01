@@ -2,8 +2,9 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from "reselect";
 import Octicon, { Dashboard, Person, SignIn, SignOut } from '@primer/octicons-react';
-
 import { Link } from "react-router-dom";
+
+import Navbar from "../navbar/navbar";
 
 import { selectCurrentUser } from "../../redux/auth/auth.selectors";
 
@@ -22,14 +23,10 @@ const Header = ({ currentUser, logout }) => {
                     {/*<Logo className="logo" />*/}
                 </Link>
                 <div className="options">
-                    {currentUser ?
-                        <Link className="option" to="/dashboard"><Octicon icon={Dashboard} /> Dashboard</Link> : ''}
-                    <Link className="option" to="/brands">
-                        Brands
-                    </Link>
                     {
                         currentUser ?
                             <>
+                                <Navbar currentUser={currentUser} />
                                 <Link className="option" to="/profile"><Octicon icon={Person} /> Profile</Link>
                                 <div className="option" onClick={logout}><Octicon icon={SignOut} /> Logout</div>
                             </>

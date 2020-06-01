@@ -1,7 +1,8 @@
 import authActionTypes from "./auth.types";
 
 const INITIAL_STATE = {
-    loggingIn: false,
+    loading: false,
+    loggedIn: false,
     currentUser: null,
     error: null
 };
@@ -11,28 +12,32 @@ const authReducer = (state = INITIAL_STATE, action) => {
         case authActionTypes.LOGIN_REQUEST:
             return {
                 ...state,
-                loggingIn: true,
+                loading: true,
+                loggedIn: false,
                 currentUser: null,
                 error: null
             };
         case authActionTypes.LOGIN_SUCCESS:
             return {
                 ...state,
-                loggingIn: false,
+                loading: false,
+                loggedIn: true,
                 currentUser: action.payload,
                 error: null
             };
         case authActionTypes.LOGIN_FAILURE:
             return {
                 ...state,
-                loggingIn: false,
+                loading: false,
+                loggedIn: false,
                 currentUser: null,
                 error: action.payload
             };
         case authActionTypes.LOGOUT:
             return {
                 ...state,
-                loggingIn: false,
+                loading: false,
+                loggedIn: false,
                 currentUser: null,
                 error: null
             };
