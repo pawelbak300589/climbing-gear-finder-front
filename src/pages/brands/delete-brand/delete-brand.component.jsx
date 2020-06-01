@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from "react-redux";
 
-import history from "../../../history";
+import { history } from "../../../helpers";
 
 import Modal from "../../../components/modal/modal.component";
 import CustomButton from "../../../components/custom-button/custom-button.component";

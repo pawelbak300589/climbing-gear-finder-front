@@ -1,6 +1,6 @@
 import { brandActionTypes } from "./brand.types";
 import backend from "../../apis/backend";
-import history from "../../history";
+import { history, authHeader } from "../../helpers";
 
 export const getAll = () => {
     const request = () => ({ type: brandActionTypes.GETALL_REQUEST });
@@ -11,9 +11,7 @@ export const getAll = () => {
         dispatch(request());
 
         await backend.get('/brands', {
-            headers: {
-                Authorization: getState().auth.currentUser.token_type + ' ' + getState().auth.currentUser.access_token
-            }
+            headers: authHeader(getState())
         })
             .then(({ data }) => {
                 dispatch(success(JSON.parse(data)));
@@ -34,9 +32,7 @@ export const getOne = (brandId) => {
         dispatch(request());
 
         await backend.get('/brands/' + brandId, {
-            headers: {
-                Authorization: getState().auth.currentUser.token_type + ' ' + getState().auth.currentUser.access_token
-            }
+            headers: authHeader(getState())
         })
             .then(({ data }) => {
                 console.log(JSON.parse(data));
@@ -58,9 +54,7 @@ export const create = (formData) => {
         dispatch(request());
 
         await backend.post('/brands', formData, {
-            headers: {
-                Authorization: getState().auth.currentUser.token_type + ' ' + getState().auth.currentUser.access_token
-            }
+            headers: authHeader(getState())
         })
             .then(({ data }) => {
                 dispatch(success(JSON.parse(data)));
@@ -82,9 +76,7 @@ export const update = (id, formData) => {
         dispatch(request());
 
         await backend.patch('/brands/' + id, formData, {
-            headers: {
-                Authorization: getState().auth.currentUser.token_type + ' ' + getState().auth.currentUser.access_token
-            }
+            headers: authHeader(getState())
         })
             .then(({ data }) => {
                 dispatch(success(data));
@@ -106,9 +98,7 @@ export const remove = (id) => {
         dispatch(request());
 
         await backend.delete('/brands/' + id, {
-            headers: {
-                Authorization: getState().auth.currentUser.token_type + ' ' + getState().auth.currentUser.access_token
-            }
+            headers: authHeader(getState())
         })
             .then(({ data }) => {
                 dispatch(success(Number(data)));

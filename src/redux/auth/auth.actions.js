@@ -1,6 +1,6 @@
 import authActionTypes from "./auth.types";
 import backend from "../../apis/backend";
-import history from "../../history";
+import { history, authHeader } from "../../helpers";
 
 export const login = (userLoginCredentials) => {
     const request = () => ({ type: authActionTypes.LOGIN_REQUEST });
@@ -12,7 +12,6 @@ export const login = (userLoginCredentials) => {
 
         await backend.post('/auth/login', userLoginCredentials)
             .then(({ data }) => {
-                console.log(data);
                 dispatch(success(data));
                 history.push('/dashboard');
             })
@@ -27,9 +26,7 @@ export const logout = () => {
 
     return async (dispatch, getState) => {
         await backend.get('/auth/logout', {
-            headers: {
-                Authorization: getState().auth.currentUser.token_type + ' ' + getState().auth.currentUser.access_token
-            }
+            headers: authHeader(getState())
         })
             .then(({ data }) => {
                 dispatch({ type: authActionTypes.LOGIN_REQUEST, payload: data });
@@ -51,7 +48,6 @@ export const register = (userRegisterCredentials) => {
 
         await backend.post('/auth/register', userRegisterCredentials)
             .then(({ data }) => {
-                console.log(data);
                 dispatch(success(data));
                 history.push('/');
             })

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Router, Switch, Route } from 'react-router-dom';
 
-import history from "./history";
+import { history } from "./helpers";
 
 import Header from "./components/header/header.component";
 import HomePage from "./pages/homepage/homepage.component";
