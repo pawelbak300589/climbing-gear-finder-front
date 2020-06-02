@@ -5,7 +5,7 @@ import AdminNav from "../navbar/admin-nav/admin-nav.component";
 import NormalUserNav from "../navbar/normal-user-nav/normal-user-nav.component";
 import PremiumUserNav from "../navbar/premium-user-nav/premium-user-nav.component";
 
-const Navbar = ({ currentUser }) => {
+const CustomNavbar = ({ currentUser }) => {
     switch (currentUser.role) {
         case 'SuperAdmin':
             return <SuperAdminNav />;
@@ -20,4 +20,4 @@ const Navbar = ({ currentUser }) => {
     }
 };
 
-export default Navbar;
+export default CustomNavbar;

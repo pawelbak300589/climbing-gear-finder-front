@@ -12,7 +12,7 @@ import DashboardPage from "./pages/dashboard/dashboard.component";
 import BrandsPage from "./pages/brands/brands.component";
 import UsersPage from "./pages/users/users.component";
 
-import './App.css';
+import './App.scss';
 
 function App() {
     return (

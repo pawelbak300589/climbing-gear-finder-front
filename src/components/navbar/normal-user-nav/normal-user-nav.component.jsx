@@ -1,10 +1,13 @@
 import React from 'react';
-import { Link } from "react-router-dom";
 import Octicon, { Dashboard } from "@primer/octicons-react";
+import Nav from "react-bootstrap/Nav";
+import { LinkContainer } from "react-router-bootstrap";
 
 const NormalUserNav = () => {
     return <>
-        <Link className="option" to="/dashboard"><Octicon icon={Dashboard} /> Dashboard</Link>
+        <Nav className="mr-auto">
+            <LinkContainer to="/dashboard"><Nav.Link><Octicon icon={Dashboard} /> Dashboard</Nav.Link></LinkContainer>
+        </Nav>
     </>;
 };
 

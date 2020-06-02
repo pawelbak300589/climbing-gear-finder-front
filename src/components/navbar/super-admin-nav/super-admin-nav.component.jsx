@@ -1,12 +1,21 @@
 import React from 'react';
-import { Link } from "react-router-dom";
-import Octicon, { Dashboard } from "@primer/octicons-react";
+import Octicon, { Dashboard, Settings } from "@primer/octicons-react";
+import Nav from "react-bootstrap/Nav";
+import { LinkContainer } from "react-router-bootstrap";
+import NavDropdown from "react-bootstrap/NavDropdown";
 
 const SuperAdminNav = () => {
     return <>
-        <Link className="option" to="/dashboard"><Octicon icon={Dashboard} /> Dashboard</Link>
-        <Link className="option" to="/users">Users</Link>
-        <Link className="option" to="/brands">Brands</Link>
+        <Nav className="mr-auto">
+            <LinkContainer to="/dashboard"><Nav.Link><Octicon icon={Dashboard} /> Dashboard</Nav.Link></LinkContainer>
+        </Nav>
+        <Nav>
+            <NavDropdown alignRight title={<><Octicon icon={Settings} /> Admin</>} id="collasible-nav-dropdown">
+                <LinkContainer to="/users"><NavDropdown.Item>Users</NavDropdown.Item></LinkContainer>
+                <NavDropdown.Divider />
+                <LinkContainer to="/brands"><NavDropdown.Item>Brands</NavDropdown.Item></LinkContainer>
+            </NavDropdown>
+        </Nav>
     </>;
 };
 
