@@ -2,10 +2,12 @@ import { brandActionTypes } from "./brand.types";
 import backend from "../../apis/backend";
 import { history, authHeader } from "../../helpers";
 
+import { success } from "../alerts/alerts.actions";
+
 export const getAll = () => {
     const request = () => ({ type: brandActionTypes.GETALL_REQUEST });
-    const success = (brands) => ({ type: brandActionTypes.GETALL_SUCCESS, payload: brands });
-    const failure = (error) => ({ type: brandActionTypes.GETALL_FAILURE, payload: error });
+    const successResult = (brands) => ({ type: brandActionTypes.GETALL_SUCCESS, payload: brands });
+    const failureResult = (error) => ({ type: brandActionTypes.GETALL_FAILURE, payload: error });
 
     return async (dispatch, getState) => {
         dispatch(request());
@@ -14,19 +16,20 @@ export const getAll = () => {
             headers: authHeader(getState())
         })
             .then(({ data }) => {
-                dispatch(success(JSON.parse(data)));
+                dispatch(successResult(JSON.parse(data)));
             })
             .catch((error) => {
                 console.log(error.message);
-                dispatch(failure(error.message));
+                dispatch(failureResult(error.message));
+                dispatch(success('Something went wrong!', error.message));
             });
     };
 };
 
 export const getOne = (brandId) => {
     const request = () => ({ type: brandActionTypes.GETONE_REQUEST });
-    const success = (brand) => ({ type: brandActionTypes.GETONE_SUCCESS, payload: brand });
-    const failure = (error) => ({ type: brandActionTypes.GETONE_FAILURE, payload: error });
+    const successResult = (brand) => ({ type: brandActionTypes.GETONE_SUCCESS, payload: brand });
+    const failureResult = (error) => ({ type: brandActionTypes.GETONE_FAILURE, payload: error });
 
     return async (dispatch, getState) => {
         dispatch(request());
@@ -36,19 +39,20 @@ export const getOne = (brandId) => {
         })
             .then(({ data }) => {
                 console.log(JSON.parse(data));
-                dispatch(success(JSON.parse(data)));
+                dispatch(successResult(JSON.parse(data)));
             })
             .catch((error) => {
                 console.log(error.message);
-                dispatch(failure(error.message));
+                dispatch(failureResult(error.message));
+                dispatch(success('Something went wrong!', error.message));
             });
     };
 };
 
 export const create = (formData) => {
     const request = () => ({ type: brandActionTypes.CREATE_REQUEST });
-    const success = (brand) => ({ type: brandActionTypes.CREATE_SUCCESS, payload: brand });
-    const failure = (error) => ({ type: brandActionTypes.CREATE_FAILURE, payload: error });
+    const successResult = (brand) => ({ type: brandActionTypes.CREATE_SUCCESS, payload: brand });
+    const failureResult = (error) => ({ type: brandActionTypes.CREATE_FAILURE, payload: error });
 
     return async (dispatch, getState) => {
         dispatch(request());
@@ -57,20 +61,22 @@ export const create = (formData) => {
             headers: authHeader(getState())
         })
             .then(({ data }) => {
-                dispatch(success(JSON.parse(data)));
+                dispatch(successResult(JSON.parse(data)));
+                dispatch(success('Brand Created!', `New brand with name: ${data.name} created.`));
                 history.push('/brands');
             })
             .catch((error) => {
                 console.log(error.message);
-                dispatch(failure(error.message));
+                dispatch(failureResult(error.message));
+                dispatch(success('Something went wrong!', error.message));
             });
     };
 };
 
 export const update = (id, formData) => {
     const request = () => ({ type: brandActionTypes.UPDATE_REQUEST });
-    const success = (brandId) => ({ type: brandActionTypes.UPDATE_SUCCESS, payload: brandId });
-    const failure = (error) => ({ type: brandActionTypes.UPDATE_FAILURE, payload: error });
+    const successResult = (brandId) => ({ type: brandActionTypes.UPDATE_SUCCESS, payload: brandId });
+    const failureResult = (error) => ({ type: brandActionTypes.UPDATE_FAILURE, payload: error });
 
     return async (dispatch, getState) => {
         dispatch(request());
@@ -79,20 +85,22 @@ export const update = (id, formData) => {
             headers: authHeader(getState())
         })
             .then(({ data }) => {
-                dispatch(success(data));
+                dispatch(successResult(data));
+                dispatch(success('Brand Updated!', `Brand "${data.name}" was successfully updated.`));
                 history.push('/brands');
             })
             .catch((error) => {
                 console.log(error.message);
-                dispatch(failure(error.message));
+                dispatch(failureResult(error.message));
+                dispatch(success('Something went wrong!', error.message));
             });
     };
 };
 
 export const remove = (id) => {
     const request = () => ({ type: brandActionTypes.DELETE_REQUEST });
-    const success = (brandId) => ({ type: brandActionTypes.DELETE_SUCCESS, payload: brandId });
-    const failure = (error) => ({ type: brandActionTypes.DELETE_FAILURE, payload: error });
+    const successResult = (brandId) => ({ type: brandActionTypes.DELETE_SUCCESS, payload: brandId });
+    const failureResult = (error) => ({ type: brandActionTypes.DELETE_FAILURE, payload: error });
 
     return async (dispatch, getState) => {
         dispatch(request());
@@ -101,12 +109,14 @@ export const remove = (id) => {
             headers: authHeader(getState())
         })
             .then(({ data }) => {
-                dispatch(success(Number(data)));
+                dispatch(successResult(Number(data)));
+                dispatch(success('Brand Removed!', `Brand successfully removed.`));
                 history.push('/brands');
             })
             .catch((error) => {
                 console.log(error.message);
-                dispatch(failure(error.message));
+                dispatch(failureResult(error.message));
+                dispatch(success('Something went wrong!', error.message));
             });
     };
 };

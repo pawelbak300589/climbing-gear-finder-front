@@ -5,6 +5,7 @@ import './modal.styles.scss';
 
 const Modal = ({ onDismiss, title, content, actions }) => {
     return ReactDOM.createPortal(
+        // TODO: update this component after adding bootstrap
         <div onClick={onDismiss} className="modal">
             <div onClick={(e) => e.stopPropagation()} className="modal-body">
                 <div className="header">{title}</div>

@@ -11,6 +11,7 @@ import RegisterPage from "./pages/register/register.component";
 import DashboardPage from "./pages/dashboard/dashboard.component";
 import BrandsPage from "./pages/brands/brands.component";
 import UsersPage from "./pages/users/users.component";
+import Alerts from "./components/alerts/alerts.component";
 
 import './App.scss';
 
@@ -28,6 +29,7 @@ function App() {
                     <PrivateRoute path="/users" roles={[Role.SuperAdmin, Role.Admin]} component={UsersPage} />
                 </Switch>
             </Router>
+            <Alerts />
         </div>
     );
 }
