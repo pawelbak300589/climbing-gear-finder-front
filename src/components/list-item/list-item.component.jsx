@@ -1,15 +1,26 @@
 import React from 'react';
+import { LinkContainer } from "react-router-bootstrap";
+
+import ListGroup from "react-bootstrap/ListGroup";
+import Col from "react-bootstrap/Col";
+import Row from "react-bootstrap/Row";
 
 import './list-item.styles.scss';
 
-const ListItem = ({ text, actions, ...otherProps }) => {
+const ListItem = ({ item, to, actions, ...otherProps }) => {
     return (
-        <div className="list-item">
-            {text}
-            <div className="actions">
-                {actions}
-            </div>
-        </div>
+        <LinkContainer to={to}>
+            <ListGroup.Item action className="list-item">
+                <Row>
+                    <Col className="pt-1">
+                        {item.name}
+                    </Col>
+                    <Col className="actions text-right">
+                        {actions}
+                    </Col>
+                </Row>
+            </ListGroup.Item>
+        </LinkContainer>
     );
 };
 

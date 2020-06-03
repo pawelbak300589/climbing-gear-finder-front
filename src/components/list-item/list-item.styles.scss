@@ -1,39 +1,15 @@
 .list-item {
-    display: flex;
-    justify-content: space-between;
-    border: 1px solid #cccccc;
-    border-radius: 3px;
-    padding: 15px 20px;
-    margin: 5px 0;
-
-    &:hover {
-        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
-    }
-
-    .text-link {
-        color: black;
-    }
 
     .actions {
-        width: 50%;
-        display: flex;
-        justify-content: flex-end;
+        opacity: 0.1;
+        filter: grayscale(100%);
+        transition: 300ms opacity ease-in-out;
+    }
 
-        .action {
-            margin: 0 10px;
-            cursor: pointer;
-
-            &.red {
-                color: red;
-            }
-
-            &.blue {
-                color: blue;
-            }
-
-            &.blueviolet {
-                color: blueviolet;
-            }
+    &:hover {
+        .actions {
+            opacity: 1;
+            filter: grayscale(0);
         }
     }
 }

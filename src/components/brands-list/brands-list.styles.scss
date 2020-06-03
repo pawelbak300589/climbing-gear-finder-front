@@ -1,27 +1,5 @@
 .brands-list {
-    display: flex;
-    flex-direction: column;
-    align-content: center;
 
-    .list {
-        margin: 10px 0;
-
-        .list-header {
-            display: flex;
-            justify-content: space-between;
-
-            h2 {
-                margin: auto 0;
-            }
-
-            .buttons {
-                display: flex;
-                justify-content: flex-end;
-
-                a {
-                    margin-left: 5px;
-                }
-            }
-        }
+    .list-header {
     }
 }
