@@ -72,7 +72,7 @@ const RegisterForm = ({ registerStart }) => {
                     label="Confirm Password"
                     required
                 />
-                <CustomButton type="submit">Register</CustomButton>
+                <CustomButton type="submit" variant="dark">Register</CustomButton>
             </form>
         </div>
     );

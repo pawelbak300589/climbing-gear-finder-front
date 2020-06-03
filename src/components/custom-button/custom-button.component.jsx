@@ -1,14 +1,18 @@
 import React from 'react';
-import { Link } from "react-router-dom";
+import Button from "react-bootstrap/Button";
 
 import './custom-button.styles.scss';
+import { LinkContainer } from "react-router-bootstrap";
 
-const CustomButton = ({ children, type = "button", colour = "black", ...otherProps }) => {
+const CustomButton = ({ children, ...otherProps }) => {
     let content;
-    if (type === 'button' || type === 'submit') {
-        content = <button className={`${colour} custom-button`} {...otherProps}>{children}</button>;
-    } else if (type === 'link') {
-        content = <Link className={`${colour} custom-button`} {...otherProps}>{children}</Link>;
+    if (otherProps.type === 'button' || otherProps.type === 'submit') {
+        content = <Button className="custom-button" {...otherProps}>{children}</Button>;
+    } else if (otherProps.type === 'link') {
+        const {to, ...buttonProps} = otherProps;
+        content = <LinkContainer to={to}>
+            <Button className="custom-button" {...buttonProps}>{children}</Button>
+        </LinkContainer>;
     }
 
     return (

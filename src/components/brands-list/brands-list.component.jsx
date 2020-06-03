@@ -34,7 +34,7 @@ const BrandsList = ({ brands, match, brandsTotal }) => {
 
                     <div className="buttons">
                         <CustomButton type="link"
-                                      colour="green"
+                                      variant="success"
                                       to={`${match.path}create`}>
                             Create New Brand
                         </CustomButton>

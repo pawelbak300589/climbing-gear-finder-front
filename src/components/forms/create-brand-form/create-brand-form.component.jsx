@@ -59,7 +59,7 @@ const CreateBrandForm = ({ createBrand }) => {
                     required
                 />
                 <div className="buttons">
-                    <CustomButton type="submit" colour="green">Create new brand</CustomButton>
+                    <CustomButton type="submit" variant="success">Create new brand</CustomButton>
                 </div>
             </form>
         </div>

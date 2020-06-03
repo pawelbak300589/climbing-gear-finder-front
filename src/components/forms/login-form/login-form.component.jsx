@@ -48,7 +48,7 @@ const LoginForm = ({ login }) => {
                 />
 
                 <div className="buttons">
-                    <CustomButton type="submit">Log in</CustomButton>
+                    <CustomButton type="submit" variant="dark">Log in</CustomButton>
                 </div>
             </form>
         </div>

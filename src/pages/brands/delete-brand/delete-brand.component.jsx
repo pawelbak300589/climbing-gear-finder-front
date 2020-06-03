@@ -24,8 +24,8 @@ const DeleteBrandPage = ({ brand, removeBrand }) => {
             const renderActions = () => {
                 return (
                     <>
-                        <CustomButton type="link" to={`/brands/show/${brand.id}`}>Cancel</CustomButton>
-                        <CustomButton onClick={() => removeBrand(brand.id)} colour="red">Delete</CustomButton>
+                        <CustomButton type="link" to={`/brands/show/${brand.id}`} variant="light">Cancel</CustomButton>
+                        <CustomButton onClick={() => removeBrand(brand.id)} variant="danger">Delete</CustomButton>
                     </>
                 );
             };

@@ -70,7 +70,7 @@ const EditBrandForm = ({ brand, updateBrand }) => {
                     required
                 />
                 <div className="buttons">
-                    <CustomButton type="submit" colour="blue">Update brand</CustomButton>
+                    <CustomButton type="submit" variant="primary">Update brand</CustomButton>
                 </div>
             </form>
         </div>
