@@ -16,7 +16,11 @@ const Alerts = ({ alerts, removeAlert }) => {
         <div className="alerts">
             {
                 alerts.map((alert) => (
-                    <Toast className={`alert alert-${alert.type}`} key={alert.id} onClose={() => removeAlert(alert.id)}>
+                    <Toast className={`alert alert-${alert.type}`}
+                           key={alert.id}
+                           onClose={() => removeAlert(alert.id)}
+                           delay={6000}
+                           autohide>
                         <Toast.Header>
                             <strong className="mr-auto">{alert.title}</strong>
                             <small>{moment(Number(alert.created)).fromNow()}</small>
