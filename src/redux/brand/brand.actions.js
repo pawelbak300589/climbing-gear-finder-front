@@ -85,7 +85,9 @@ export const update = (id, formData) => {
             headers: authHeader(getState())
         })
             .then(({ data }) => {
-                dispatch(successResult(data));
+                console.log(JSON.parse(data));
+
+                dispatch(successResult(JSON.parse(data)));
                 dispatch(success('Brand Updated!', `Brand was successfully updated.`));
                 history.push('/brands');
             })

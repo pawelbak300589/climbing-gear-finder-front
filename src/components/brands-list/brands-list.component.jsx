@@ -9,6 +9,9 @@ import ListGroup from "react-bootstrap/ListGroup";
 
 import CustomButton from "../custom-button/custom-button.component";
 import ListItem from "../list-item/list-item.component";
+import CustomBreadcrumb from "../custom-breadcrumb/custom-breadcrumb.component";
+
+import { brandsPageBreadcrumbItems } from "../custom-breadcrumb/custom-breadcrumb.data";
 
 import { selectBrandsList, selectBrandsTotal } from "../../redux/brand/brand.selectors";
 
@@ -41,38 +44,41 @@ const BrandsList = ({ brands, match, brandsTotal }) => {
     );
 
     return (
-        <Container className="brands-list py-3">
-            <Row className="list-header">
-                <Col>
-                    <h2>Brands</h2>
-                </Col>
-                <Col className="text-right buttons">
-                    <CustomButton type="link"
-                                  variant="success"
-                                  to={`${match.path}create`}>
-                        Create New Brand
-                    </CustomButton>
-                </Col>
-            </Row>
-            <Row>
-                <Col>
-                    <p>Total brands: {brandsTotal}</p>
-                </Col>
-            </Row>
-            <Row>
-                <Col>
-                    <ListGroup variant="flush">
-                        {
-                            brands.map(brand => (
-                                <ListItem key={brand.id}
-                                          item={brand}
-                                          to={`${match.path}show/${brand.id}`}
-                                          actions={itemActions(brand)} />))
-                        }
-                    </ListGroup>
-                </Col>
-            </Row>
-        </Container>
+        <>
+            <CustomBreadcrumb items={brandsPageBreadcrumbItems} />
+            <Container className="brands-list py-3">
+                <Row className="list-header">
+                    <Col>
+                        <h2>Brands</h2>
+                    </Col>
+                    <Col className="text-right buttons">
+                        <CustomButton type="link"
+                                      variant="success"
+                                      to={`${match.path}create`}>
+                            Create New Brand
+                        </CustomButton>
+                    </Col>
+                </Row>
+                <Row>
+                    <Col>
+                        <p>Total brands: {brandsTotal}</p>
+                    </Col>
+                </Row>
+                <Row>
+                    <Col>
+                        <ListGroup variant="flush">
+                            {
+                                brands.map(brand => (
+                                    <ListItem key={brand.id}
+                                              item={brand}
+                                              to={`${match.path}show/${brand.id}`}
+                                              actions={itemActions(brand)} />))
+                            }
+                        </ListGroup>
+                    </Col>
+                </Row>
+            </Container>
+        </>
     );
 };
 
