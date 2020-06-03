@@ -2,19 +2,19 @@ import React from 'react';
 import ReactDOM from "react-dom";
 
 import './modal.styles.scss';
+import { default as BootstrapModal } from "react-bootstrap/Modal";
 
-const Modal = ({ onDismiss, title, content, actions }) => {
+const Modal = ({ onDismiss, title, content, actions, ...otherProps }) => {
     return ReactDOM.createPortal(
-        // TODO: update this component after adding bootstrap
-        <div onClick={onDismiss} className="modal">
-            <div onClick={(e) => e.stopPropagation()} className="modal-body">
-                <div className="header">{title}</div>
-                <div className="content">{content}</div>
-                <div className="actions">
-                    {actions}
-                </div>
-            </div>
-        </div>,
+        <BootstrapModal show backdrop="static" onHide={onDismiss} {...otherProps}>
+            <BootstrapModal.Header closeButton>
+                <BootstrapModal.Title>{title}</BootstrapModal.Title>
+            </BootstrapModal.Header>
+            <BootstrapModal.Body>{content}</BootstrapModal.Body>
+            <BootstrapModal.Footer>
+                {actions}
+            </BootstrapModal.Footer>
+        </BootstrapModal>,
         document.querySelector('#modal')
     );
 };
