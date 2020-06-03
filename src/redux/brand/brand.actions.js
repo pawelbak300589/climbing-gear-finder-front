@@ -2,7 +2,7 @@ import { brandActionTypes } from "./brand.types";
 import backend from "../../apis/backend";
 import { history, authHeader } from "../../helpers";
 
-import { success } from "../alerts/alerts.actions";
+import { success, error as errorAlert } from "../alerts/alerts.actions";
 
 export const getAll = () => {
     const request = () => ({ type: brandActionTypes.GETALL_REQUEST });
@@ -21,7 +21,7 @@ export const getAll = () => {
             .catch((error) => {
                 console.log(error.message);
                 dispatch(failureResult(error.message));
-                dispatch(success('Something went wrong!', error.message));
+                dispatch(errorAlert('Something went wrong!', error.message));
             });
     };
 };
@@ -44,7 +44,7 @@ export const getOne = (brandId) => {
             .catch((error) => {
                 console.log(error.message);
                 dispatch(failureResult(error.message));
-                dispatch(success('Something went wrong!', error.message));
+                dispatch(errorAlert('Something went wrong!', error.message));
             });
     };
 };
@@ -62,13 +62,13 @@ export const create = (formData) => {
         })
             .then(({ data }) => {
                 dispatch(successResult(JSON.parse(data)));
-                dispatch(success('Brand Created!', `New brand with name: ${data.name} created.`));
+                dispatch(success('Brand Created!', 'New brand is successfully created.'));
                 history.push('/brands');
             })
             .catch((error) => {
                 console.log(error.message);
                 dispatch(failureResult(error.message));
-                dispatch(success('Something went wrong!', error.message));
+                dispatch(errorAlert('Something went wrong!', error.message));
             });
     };
 };
@@ -86,13 +86,13 @@ export const update = (id, formData) => {
         })
             .then(({ data }) => {
                 dispatch(successResult(data));
-                dispatch(success('Brand Updated!', `Brand "${data.name}" was successfully updated.`));
+                dispatch(success('Brand Updated!', `Brand was successfully updated.`));
                 history.push('/brands');
             })
             .catch((error) => {
                 console.log(error.message);
                 dispatch(failureResult(error.message));
-                dispatch(success('Something went wrong!', error.message));
+                dispatch(errorAlert('Something went wrong!', error.message));
             });
     };
 };
@@ -116,7 +116,7 @@ export const remove = (id) => {
             .catch((error) => {
                 console.log(error.message);
                 dispatch(failureResult(error.message));
-                dispatch(success('Something went wrong!', error.message));
+                dispatch(errorAlert('Something went wrong!', error.message));
             });
     };
 };
