@@ -14,7 +14,7 @@ const brandReducer = (state = INITIAL_STATE, action) => {
         case brandActionTypes.UPDATE_REQUEST:
         case brandActionTypes.DELETE_REQUEST:
         case brandActionTypes.BLACKLIST_REQUEST:
-        case brandActionTypes.MOVE_TO_MAPPING_REQUEST:
+        case brandActionTypes.CONVERT_TO_MAPPING_REQUEST:
             return {
                 ...state,
                 loading: true,
@@ -44,6 +44,7 @@ const brandReducer = (state = INITIAL_STATE, action) => {
                 error: null
             };
         case brandActionTypes.UPDATE_SUCCESS:
+        case brandActionTypes.CONVERT_TO_MAPPING_SUCCESS:
             return {
                 ...state,
                 loading: false,
@@ -66,7 +67,6 @@ const brandReducer = (state = INITIAL_STATE, action) => {
                 error: null
             };
         case brandActionTypes.BLACKLIST_SUCCESS:
-        case brandActionTypes.MOVE_TO_MAPPING_SUCCESS:
             return {
                 ...state,
                 loading: false,
@@ -77,7 +77,7 @@ const brandReducer = (state = INITIAL_STATE, action) => {
         case brandActionTypes.UPDATE_FAILURE:
         case brandActionTypes.DELETE_FAILURE:
         case brandActionTypes.BLACKLIST_FAILURE:
-        case brandActionTypes.MOVE_TO_MAPPING_FAILURE:
+        case brandActionTypes.CONVERT_TO_MAPPING_FAILURE:
             return {
                 ...state,
                 loading: false,

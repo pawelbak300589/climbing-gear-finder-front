@@ -14,7 +14,7 @@ const BrandItemButtons = ({ id }) => {
                           type="link"
                           variant="outline-info"
                           size="sm"
-                          to={`/brands/move/${id}`}>move</CustomButton>
+                          to={`/brands/convert/${id}`}>convert</CustomButton>
             <CustomButton className="ml-2"
                           type="link"
                           variant="outline-dark"

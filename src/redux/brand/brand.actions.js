@@ -76,7 +76,7 @@ export const create = (formData) => {
 
 export const update = (id, formData) => {
     const request = () => ({ type: brandActionTypes.UPDATE_REQUEST });
-    const successResult = (brandId) => ({ type: brandActionTypes.UPDATE_SUCCESS, payload: brandId });
+    const successResult = (brand) => ({ type: brandActionTypes.UPDATE_SUCCESS, payload: brand });
     const failureResult = (error) => ({ type: brandActionTypes.UPDATE_FAILURE, payload: error });
 
     return async (dispatch, getState) => {
@@ -138,6 +138,36 @@ export const blacklist = (id) => {
                 dispatch(successResult(JSON.parse(data)));
                 dispatch(success('Brand Blacklisted!', `Brand successfully blacklisted.`));
                 history.push('/brands');
+            })
+            .catch((error) => {
+                console.log(error.message);
+                dispatch(failureResult(error.message));
+                dispatch(errorAlert('Something went wrong!', error.message));
+            });
+    };
+};
+
+export const convertToMapping = (id, parentId) => {
+    const request = () => ({ type: brandActionTypes.CONVERT_TO_MAPPING_REQUEST });
+    const successResult = (parentBrand) => ({
+        type: brandActionTypes.CONVERT_TO_MAPPING_SUCCESS,
+        payload: parentBrand
+    });
+    const failureResult = (error) => ({ type: brandActionTypes.CONVERT_TO_MAPPING_FAILURE, payload: error });
+    const deleteOldBrandId = (brandId) => ({ type: brandActionTypes.DELETE_SUCCESS, payload: brandId });
+
+    return async (dispatch, getState) => {
+        dispatch(request());
+
+        await backend.post('/brands/convert/' + id + '/to/' + parentId, [], {
+            headers: authHeader(getState())
+        })
+            .then(({ data }) => {
+                const parentBrand = JSON.parse(data);
+                dispatch(successResult(parentBrand));
+                dispatch(deleteOldBrandId(id));
+                dispatch(success('Brand Converted!', `Brand successfully converted as a mapping.`));
+                history.push('/brands/show/' + parentBrand.id);
             })
             .catch((error) => {
                 console.log(error.message);
