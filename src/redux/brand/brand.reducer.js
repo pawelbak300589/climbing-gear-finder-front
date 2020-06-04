@@ -66,6 +66,7 @@ const brandReducer = (state = INITIAL_STATE, action) => {
                 error: null
             };
         case brandActionTypes.BLACKLIST_SUCCESS:
+        case brandActionTypes.MOVE_TO_MAPPING_SUCCESS:
             return {
                 ...state,
                 loading: false,
@@ -76,14 +77,12 @@ const brandReducer = (state = INITIAL_STATE, action) => {
         case brandActionTypes.UPDATE_FAILURE:
         case brandActionTypes.DELETE_FAILURE:
         case brandActionTypes.BLACKLIST_FAILURE:
+        case brandActionTypes.MOVE_TO_MAPPING_FAILURE:
             return {
                 ...state,
                 loading: false,
                 error: action.payload
             };
-        // TODO:
-        // TODO: case brandActionTypes.MOVE_TO_MAPPING_SUCCESS:
-        // TODO: case brandActionTypes.MOVE_TO_MAPPING_FAILURE:
         default:
             return state;
     }

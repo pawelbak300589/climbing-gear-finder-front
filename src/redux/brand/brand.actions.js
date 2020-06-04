@@ -61,9 +61,10 @@ export const create = (formData) => {
             headers: authHeader(getState())
         })
             .then(({ data }) => {
-                dispatch(successResult(JSON.parse(data)));
+                const brand = JSON.parse(data);
+                dispatch(successResult(brand));
                 dispatch(success('Brand Created!', 'New brand is successfully created.'));
-                history.push('/brands');
+                history.push('/brands/show/' + brand.id);
             })
             .catch((error) => {
                 console.log(error.message);
@@ -85,11 +86,10 @@ export const update = (id, formData) => {
             headers: authHeader(getState())
         })
             .then(({ data }) => {
-                console.log(JSON.parse(data));
-
-                dispatch(successResult(JSON.parse(data)));
+                const brand = JSON.parse(data);
+                dispatch(successResult(brand));
                 dispatch(success('Brand Updated!', `Brand was successfully updated.`));
-                history.push('/brands');
+                history.push('/brands/show/' + brand.id);
             })
             .catch((error) => {
                 console.log(error.message);
@@ -135,7 +135,6 @@ export const blacklist = (id) => {
             headers: authHeader(getState())
         })
             .then(({ data }) => {
-                console.log(JSON.parse(data));
                 dispatch(successResult(JSON.parse(data)));
                 dispatch(success('Brand Blacklisted!', `Brand successfully blacklisted.`));
                 history.push('/brands');
