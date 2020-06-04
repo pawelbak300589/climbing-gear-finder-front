@@ -7,6 +7,7 @@ import Badge from "react-bootstrap/Badge";
 
 import BrandItemButtons from "../item-buttons/brand-item-buttons.component";
 import CustomBreadcrumb from "../custom-breadcrumb/custom-breadcrumb.component";
+import CreateMappingForm from "../forms/create-mapping-form/create-mapping-form.component";
 
 import { showBrandPageBreadcrumbItems } from "../custom-breadcrumb/custom-breadcrumb.data";
 
@@ -19,7 +20,7 @@ const BrandDetails = ({ brand }) => {
             <Container className="brand-details pb-3">
                 <Row>
                     <Col>
-                        <h2>{brand.name} <Badge variant="secondary"><a href="{brand.url}">{brand.url}</a></Badge></h2>
+                        <h2>{brand.name} <Badge variant="secondary"><a href={brand.url}>{brand.url}</a></Badge></h2>
                     </Col>
                 </Row>
                 <Row>
@@ -53,7 +54,8 @@ const BrandDetails = ({ brand }) => {
                 </Row>
                 <Row>
                     <Col>
-                        <div className="mapping-list"> {/*TODO: create component for this */}
+                        <div className="mapping-list"> {/*TODO: create component for this + load mappings for brand from API only when there is no mapping in redux for brandID otherwise load mappings from redux store */}
+                            {/*TODO: remove mappings from brands - api call - brands microservice */}
                             <h4>Name Mappings:</h4>
                             <ul>
                                 {
@@ -65,15 +67,8 @@ const BrandDetails = ({ brand }) => {
                         </div>
                     </Col>
                 </Row>
-                <Row>
-                    <Col>
-                        <div className="mapping-create-form"> {/*TODO: create component for this */}
-                            <label>Create New Mapping</label>
-                            <input type="text" />
-                        </div>
-                    </Col>
-                </Row>
             </Container>
+            <CreateMappingForm mappingType="brand" />
         </>
     );
 };
