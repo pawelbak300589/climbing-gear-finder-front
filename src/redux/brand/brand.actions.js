@@ -122,3 +122,28 @@ export const remove = (id) => {
             });
     };
 };
+
+export const blacklist = (id) => {
+    const request = () => ({ type: brandActionTypes.BLACKLIST_REQUEST });
+    const successResult = (brand) => ({ type: brandActionTypes.BLACKLIST_SUCCESS, payload: brand });
+    const failureResult = (error) => ({ type: brandActionTypes.BLACKLIST_FAILURE, payload: error });
+
+    return async (dispatch, getState) => {
+        dispatch(request());
+
+        await backend.post('/brands/blacklist/' + id, [], {
+            headers: authHeader(getState())
+        })
+            .then(({ data }) => {
+                console.log(JSON.parse(data));
+                dispatch(successResult(JSON.parse(data)));
+                dispatch(success('Brand Blacklisted!', `Brand successfully blacklisted.`));
+                history.push('/brands');
+            })
+            .catch((error) => {
+                console.log(error.message);
+                dispatch(failureResult(error.message));
+                dispatch(errorAlert('Something went wrong!', error.message));
+            });
+    };
+};

@@ -10,6 +10,7 @@ import ListGroup from "react-bootstrap/ListGroup";
 import CustomButton from "../custom-button/custom-button.component";
 import ListItem from "../list-item/list-item.component";
 import CustomBreadcrumb from "../custom-breadcrumb/custom-breadcrumb.component";
+import BrandItemButtons from "../item-buttons/brand-item-buttons.component";
 
 import { brandsPageBreadcrumbItems } from "../custom-breadcrumb/custom-breadcrumb.data";
 
@@ -17,30 +18,9 @@ import { selectBrandsList, selectBrandsTotal } from "../../redux/brand/brand.sel
 
 import './brands-list.styles.scss';
 
-const BrandsList = ({ brands, match, brandsTotal }) => {
+const BrandsList = ({ match, brands, brandsTotal }) => {
     const itemActions = ({ id }) => (
-        <>
-            <CustomButton className="ml-2"
-                          type="link"
-                          variant="outline-primary"
-                          size="sm"
-                          to={`${match.path}edit/${id}`}>edit</CustomButton>
-            <CustomButton className="ml-2"
-                          type="link"
-                          variant="outline-info"
-                          size="sm"
-                          to={`${match.path}move/${id}`}>move</CustomButton>
-            <CustomButton className="ml-2"
-                          type="link"
-                          variant="outline-dark"
-                          size="sm"
-                          to={`${match.path}blacklist/${id}`}>blacklist</CustomButton>
-            <CustomButton className="ml-2"
-                          type="link"
-                          variant="outline-danger"
-                          size="sm"
-                          to={`${match.path}delete/${id}`}>&#10005;</CustomButton>
-        </>
+        <BrandItemButtons id={id} />
     );
 
     return (
