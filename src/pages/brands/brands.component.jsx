@@ -26,6 +26,8 @@ const BrandsPage = ({ match, getAllBrands }) => {
             <Route path={`${match.path}/delete/:brandId`} component={DeleteBrandPageContainer} />
             <Route path={`${match.path}/blacklist/:brandId`} component={BlacklistBrandPageContainer} />
             <Route path={`${match.path}/convert/:brandId`} component={ConvertBrandPageContainer} />
+            <Route path={`${match.path}/:brandId/mapping/edit/:mappingId`} component={ShowBrandPageContainer} />
+            <Route path={`${match.path}/:brandId/mapping/delete/:mappingId`} component={ShowBrandPageContainer} />
         </div>
     );
 };

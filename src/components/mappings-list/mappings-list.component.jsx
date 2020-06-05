@@ -4,22 +4,32 @@ import { connect } from "react-redux";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Container from "react-bootstrap/Container";
+import ListGroup from "react-bootstrap/ListGroup";
+
+import ListItem from "../list-item/list-item.component";
+import MappingItemButtons from "../item-buttons/mapping-item-buttons.component";
 
 import { selectBrandMappingsByBrandId } from "../../redux/brand-mapping/brand-mapping.selectors";
 
-const MappingsList = ({ brandMappings }) => {
+const MappingsList = ({ brandId, brandMappings }) => {
+    const itemActions = ({ id }) => (
+        <MappingItemButtons id={id} brandId={brandId} />
+    );
+
     return (
         <Container>
             <Row>
                 <Col>
                     <div className="mapping-list">
                         <h4>Name Mappings:</h4>
-                        <ul>
+                        <ListGroup variant="flush">
                             {
                                 brandMappings && brandMappings.map((mapping) =>
-                                    <li key={mapping.id}>{mapping.name}</li>)
+                                    <ListItem key={mapping.id}
+                                              item={mapping}
+                                              actions={itemActions(mapping)} />)
                             }
-                        </ul>
+                        </ListGroup>
                     </div>
                 </Col>
             </Row>

@@ -13,11 +13,17 @@ const ListItem = ({ item, to, actions, ...otherProps }) => {
         <ListGroup.Item className="list-item" {...otherProps}>
             <Row>
                 <Col>
-                    <CustomButton type="link"
-                                  to={to}
-                                  variant="link"
-                                  size="sm"
-                                  className="text-decoration-none">{item.name}</CustomButton>
+                    {
+                        to ?
+                            <CustomButton type="link"
+                                          to={to}
+                                          variant="link"
+                                          size="sm"
+                                          className="text-decoration-none">{item.name}</CustomButton>
+
+                            :
+                            item.name
+                    }
                 </Col>
                 <Col className="actions text-right">
                     {actions}
