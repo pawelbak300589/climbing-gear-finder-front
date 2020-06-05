@@ -7,9 +7,9 @@ import Col from "react-bootstrap/Col";
 import Form from "react-bootstrap/Form";
 
 import CustomButton from "../../custom-button/custom-button.component";
-import { create } from "../../../redux/brand/brand.actions";
+import { create } from "../../../redux/brand-mapping/brand-mapping.actions";
 
-const CreateMappingForm = ({ mappingType, createMapping }) => {
+const CreateMappingForm = ({ brandId, mappingType, createMapping }) => {
     const [formData, setFormData] = useState({
         mappingName: '',
         type: '',
@@ -19,8 +19,9 @@ const CreateMappingForm = ({ mappingType, createMapping }) => {
 
     const handleSubmit = (event) => {
         event.preventDefault();
+        let properType = mappingType !== undefined ? mappingType : type;
 
-        createMapping({ name: mappingName, type });
+        createMapping(brandId, { name: mappingName, type: properType });
     };
 
     const handleChange = (event) => {
@@ -40,15 +41,14 @@ const CreateMappingForm = ({ mappingType, createMapping }) => {
                 <Col>
                     <Form onSubmit={handleSubmit}>
                         <Form.Group controlId="mappingName">
-                            <Form.Label>Name</Form.Label>
                             <Form.Control name="mappingName"
                                           type="text"
                                           value={mappingName}
                                           onChange={handleChange}
+                                          placeholder="Mapping Text"
                                           required />
                         </Form.Group>
-                        <Form.Group controlId="type" className="d-none">
-                            <Form.Label>Type</Form.Label>
+                        <Form.Group controlId="type" className={(mappingType !== undefined) ? 'd-none' : ''}>
                             <Form.Control name="type"
                                           type="text"
                                           as="select"
@@ -56,6 +56,7 @@ const CreateMappingForm = ({ mappingType, createMapping }) => {
                                           onChange={handleChange}
                                           disabled={(mappingType !== undefined)}
                                           required>
+                                <option value="">Select mapping type</option>
                                 <option value="brand">Brand</option>
                                 <option value="gear">Gear</option>
                                 <option value="category">Category</option>
@@ -70,7 +71,7 @@ const CreateMappingForm = ({ mappingType, createMapping }) => {
 };
 
 const mapDispatchToProps = dispatch => ({
-    createMapping: (formData) => dispatch(create(formData))
+    createMapping: (brandId, formData) => dispatch(create(brandId, formData))
 });
 
 export default connect(null, mapDispatchToProps)(CreateMappingForm);

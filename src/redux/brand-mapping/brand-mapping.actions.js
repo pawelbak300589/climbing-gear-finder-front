@@ -29,3 +29,30 @@ export const getAllByBrandId = (brandId) => {
             });
     };
 };
+
+export const create = (brandId, formData) => {
+    const request = () => ({ type: brandMappingActionTypes.CREATE_REQUEST });
+    const successResult = (brandMapping) => ({
+        type: brandMappingActionTypes.CREATE_SUCCESS,
+        payload: { brandId, brandMapping }
+    });
+    const failureResult = (error) => ({ type: brandMappingActionTypes.CREATE_FAILURE, payload: error });
+
+    return async (dispatch, getState) => {
+        dispatch(request());
+
+        await backend.post('/brands/' + brandId + '/mappings', formData, {
+            headers: authHeader(getState())
+        })
+            .then(({ data }) => {
+                const brandMapping = JSON.parse(data);
+                dispatch(successResult(brandMapping));
+                dispatch(success('Brand Mapping Created!', 'New brand mapping is successfully created.'));
+            })
+            .catch((error) => {
+                console.log(error.message);
+                dispatch(failureResult(error.message));
+                dispatch(errorAlert('Something went wrong!', error.message));
+            });
+    };
+};

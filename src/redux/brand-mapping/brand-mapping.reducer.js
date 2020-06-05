@@ -15,7 +15,6 @@ const brandMappingReducer = (state = INITIAL_STATE, action) => {
             return {
                 ...state,
                 loading: true,
-                // items: [],
                 error: null
             };
         case brandMappingActionTypes.GETALL_BY_BRAND_SUCCESS:
@@ -23,21 +22,22 @@ const brandMappingReducer = (state = INITIAL_STATE, action) => {
                 ...state,
                 loading: false,
                 items: { ...state.items, [action.payload.brandId]: action.payload.brandMappings },
-                // items: action.payload.brandMappings,
                 error: null
             };
         case brandMappingActionTypes.GETALL_BY_BRAND_FAILURE:
             return {
                 ...state,
                 loading: false,
-                // items: [],
                 error: action.payload
             };
         case brandMappingActionTypes.CREATE_SUCCESS:
             return {
                 ...state,
                 loading: false,
-                items: [...state.items, action.payload],
+                items: {
+                    ...state.items,
+                    [action.payload.brandId]: [...state.items[action.payload.brandId], action.payload.brandMapping]
+                },
                 error: null
             };
         case brandMappingActionTypes.UPDATE_SUCCESS:

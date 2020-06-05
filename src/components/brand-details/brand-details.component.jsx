@@ -65,7 +65,7 @@ const BrandDetails = ({ brand, brandMappingsExist, getAllMappingsByBrandId }) =>
                 </Row>
             </Container>
             <MappingsListContainer brandId={brand.id} />
-            <CreateMappingForm mappingType="brand" />
+            <CreateMappingForm brandId={brand.id} mappingType="brand" />
         </>
     );
 };
