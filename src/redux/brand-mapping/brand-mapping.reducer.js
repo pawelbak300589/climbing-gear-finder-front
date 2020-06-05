@@ -2,7 +2,7 @@ import { brandMappingActionTypes } from "./brand-mapping.types";
 
 const INITIAL_STATE = {
     loading: false,
-    mappings: [],
+    items: {},
     error: null
 };
 
@@ -15,41 +15,43 @@ const brandMappingReducer = (state = INITIAL_STATE, action) => {
             return {
                 ...state,
                 loading: true,
+                // items: [],
                 error: null
             };
         case brandMappingActionTypes.GETALL_BY_BRAND_SUCCESS:
             return {
                 ...state,
                 loading: false,
-                mappings: action.payload,
+                items: { ...state.items, [action.payload.brandId]: action.payload.brandMappings },
+                // items: action.payload.brandMappings,
                 error: null
             };
         case brandMappingActionTypes.GETALL_BY_BRAND_FAILURE:
             return {
                 ...state,
                 loading: false,
-                mappings: [],
+                // items: [],
                 error: action.payload
             };
         case brandMappingActionTypes.CREATE_SUCCESS:
             return {
                 ...state,
                 loading: false,
-                mappings: [...state.mappings, action.payload],
+                items: [...state.items, action.payload],
                 error: null
             };
         case brandMappingActionTypes.UPDATE_SUCCESS:
             return {
                 ...state,
                 loading: false,
-                mappings: state.mappings.map((mapping) => {
-                    if (mapping.id === action.payload.id) {
+                items: state.items.map((item) => {
+                    if (item.id === action.payload.id) {
                         return { // return updated item
-                            ...mapping,
+                            ...item,
                             ...action.payload
                         };
                     }
-                    return mapping; // return item without change
+                    return item; // return item without change
                 }),
                 error: null
             };
@@ -57,7 +59,7 @@ const brandMappingReducer = (state = INITIAL_STATE, action) => {
             return {
                 ...state,
                 loading: false,
-                mappings: state.mappings.filter((mapping) => mapping.id !== action.payload),
+                items: state.items.filter((item) => item.id !== action.payload),
                 error: null
             };
         case brandMappingActionTypes.CREATE_FAILURE:

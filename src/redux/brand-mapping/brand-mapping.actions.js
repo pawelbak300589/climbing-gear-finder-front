@@ -6,7 +6,10 @@ import { success, error as errorAlert } from "../alerts/alerts.actions";
 
 export const getAllByBrandId = (brandId) => {
     const request = () => ({ type: brandMappingActionTypes.GETALL_BY_BRAND_REQUEST });
-    const successResult = (brands) => ({ type: brandMappingActionTypes.GETALL_BY_BRAND_SUCCESS, payload: brands });
+    const successResult = (brandMappings) => ({
+        type: brandMappingActionTypes.GETALL_BY_BRAND_SUCCESS,
+        payload: { brandId, brandMappings }
+    });
     const failureResult = (error) => ({ type: brandMappingActionTypes.GETALL_BY_BRAND_FAILURE, payload: error });
 
     return async (dispatch, getState) => {
@@ -16,6 +19,7 @@ export const getAllByBrandId = (brandId) => {
             headers: authHeader(getState())
         })
             .then(({ data }) => {
+                // console.log(JSON.parse(data));
                 dispatch(successResult(JSON.parse(data)));
             })
             .catch((error) => {

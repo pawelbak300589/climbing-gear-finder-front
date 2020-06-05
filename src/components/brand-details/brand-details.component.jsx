@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { connect } from "react-redux";
 
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
@@ -7,13 +8,23 @@ import Badge from "react-bootstrap/Badge";
 
 import BrandItemButtons from "../item-buttons/brand-item-buttons.component";
 import CustomBreadcrumb from "../custom-breadcrumb/custom-breadcrumb.component";
+import MappingsListContainer from "../mappings-list/mappings-list.container";
 import CreateMappingForm from "../forms/create-mapping-form/create-mapping-form.component";
 
 import { showBrandPageBreadcrumbItems } from "../custom-breadcrumb/custom-breadcrumb.data";
 
+import { getAllByBrandId } from "../../redux/brand-mapping/brand-mapping.actions";
+import { selectBrandMappingsExist } from "../../redux/brand-mapping/brand-mapping.selectors";
+
 import './brand-details.styles.scss';
 
-const BrandDetails = ({ brand }) => {
+const BrandDetails = ({ brand, brandMappingsExist, getAllMappingsByBrandId }) => {
+    useEffect(() => {
+        if (!brandMappingsExist) {
+            getAllMappingsByBrandId(brand.id);
+        }
+    }, [brand]);
+
     return (
         <>
             <CustomBreadcrumb items={showBrandPageBreadcrumbItems} />
@@ -42,7 +53,7 @@ const BrandDetails = ({ brand }) => {
                     <Col>
                         <div className="item-images"> {/*TODO: create component for this */}
 
-                            <img src="{brand.img}" alt="{brand.name}" />
+                            <img src={brand.img} alt={brand.name} />
 
                         </div>
                     </Col>
@@ -52,25 +63,19 @@ const BrandDetails = ({ brand }) => {
                         <hr />
                     </Col>
                 </Row>
-                <Row>
-                    <Col>
-                        <div className="mapping-list"> {/*TODO: create component for this + load mappings for brand from API only when there is no mapping in redux for brandID otherwise load mappings from redux store */}
-                            {/*TODO: remove mappings from brands - api call - brands microservice */}
-                            <h4>Name Mappings:</h4>
-                            <ul>
-                                {
-                                    brand.name_mappings.map((mapping) => {
-                                        return <li key={mapping.id}>{mapping.name}</li>;
-                                    })
-                                }
-                            </ul>
-                        </div>
-                    </Col>
-                </Row>
             </Container>
+            <MappingsListContainer brandId={brand.id} />
             <CreateMappingForm mappingType="brand" />
         </>
     );
 };
 
-export default BrandDetails;
+const mapStateToProps = (state, ownProps) => ({
+    brandMappingsExist: selectBrandMappingsExist(ownProps.brand.id)(state),
+});
+
+const mapDispatchToProps = dispatch => ({
+    getAllMappingsByBrandId: (brandId) => dispatch(getAllByBrandId(brandId))
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(BrandDetails);

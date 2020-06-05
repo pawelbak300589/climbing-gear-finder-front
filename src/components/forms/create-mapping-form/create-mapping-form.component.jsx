@@ -10,8 +10,6 @@ import CustomButton from "../../custom-button/custom-button.component";
 import { create } from "../../../redux/brand/brand.actions";
 
 const CreateMappingForm = ({ mappingType, createMapping }) => {
-    console.log(mappingType);
-
     const [formData, setFormData] = useState({
         mappingName: '',
         type: '',
