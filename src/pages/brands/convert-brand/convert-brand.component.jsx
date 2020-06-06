@@ -79,7 +79,7 @@ const ConvertBrandPage = ({ brand, brandsForSelect, convertBrandToMapping }) => 
 
 const mapStateToProps = (state, ownProps) => ({
     brandsForSelect: selectBrandsForSelectInput([Number(ownProps.match.params.brandId)])(state),
-    brand: selectBrand(ownProps.match.params.brandId)(state)[0]
+    brand: selectBrand(ownProps.match.params.brandId)(state)
 });
 
 const mapDispatchToProps = dispatch => ({

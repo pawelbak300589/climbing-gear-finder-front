@@ -22,7 +22,7 @@ const ShowBrandPage = ({ brand }) => {
 };
 
 const mapStateToProps = (state, ownProps) => ({
-    brand: selectBrand(ownProps.match.params.brandId)(state)[0]
+    brand: selectBrand(ownProps.match.params.brandId)(state)
 });
 
 export default connect(mapStateToProps)(ShowBrandPage);

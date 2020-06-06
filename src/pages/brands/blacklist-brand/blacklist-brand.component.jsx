@@ -52,7 +52,7 @@ const BlacklistBrandPage = ({ brand, blacklistBrand }) => {
 };
 
 const mapStateToProps = (state, ownProps) => ({
-    brand: selectBrand(ownProps.match.params.brandId)(state)[0]
+    brand: selectBrand(ownProps.match.params.brandId)(state)
 });
 
 const mapDispatchToProps = dispatch => ({

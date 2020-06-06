@@ -9,6 +9,7 @@ import DeleteBrandPageContainer from "./delete-brand/delete-brand.container";
 import ShowBrandPageContainer from "./show-brand/show-brand.container";
 import BlacklistBrandPageContainer from "./blacklist-brand/blacklist-brand.container";
 import ConvertBrandPageContainer from "./convert-brand/convert-brand.container";
+import EditBrandMappingPageContainer from "../brand-mapping/edit-brand-mapping.container";
 
 import { getAll } from "../../redux/brand/brand.actions";
 
@@ -26,8 +27,8 @@ const BrandsPage = ({ match, getAllBrands }) => {
             <Route path={`${match.path}/delete/:brandId`} component={DeleteBrandPageContainer} />
             <Route path={`${match.path}/blacklist/:brandId`} component={BlacklistBrandPageContainer} />
             <Route path={`${match.path}/convert/:brandId`} component={ConvertBrandPageContainer} />
-            <Route path={`${match.path}/:brandId/mapping/edit/:mappingId`} component={ShowBrandPageContainer} />
-            <Route path={`${match.path}/:brandId/mapping/delete/:mappingId`} component={ShowBrandPageContainer} />
+            <Route path={`${match.path}/:brandId/mapping/edit/:mappingId`} component={EditBrandMappingPageContainer} />
+            <Route path={`${match.path}/:brandId/mapping/delete/:mappingId`} component={EditBrandMappingPageContainer} />
         </div>
     );
 };
