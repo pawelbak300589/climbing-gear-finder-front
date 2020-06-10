@@ -12,10 +12,17 @@ export const getAll = () => {
     return async (dispatch, getState) => {
         dispatch(request());
 
+        // console.log(getState().brands.pagination);
+
         await backend.get('/brands', {
+            params: {
+                page: getState().brands.pagination.current_page,
+                per_page: getState().brands.pagination.per_page
+            },
             headers: authHeader(getState())
         })
             .then(({ data }) => {
+                // console.log(JSON.parse(data));
                 dispatch(successResult(JSON.parse(data)));
             })
             .catch((error) => {
@@ -174,5 +181,12 @@ export const convertToMapping = (id, parentId) => {
                 dispatch(failureResult(error.message));
                 dispatch(errorAlert('Something went wrong!', error.message));
             });
+    };
+};
+
+export const changeCurrentPage = (page) => {
+    return (dispatch) => {
+        dispatch({ type: brandActionTypes.CHANGE_CURRENT_PAGE, payload: page });
+        dispatch(getAll());
     };
 };

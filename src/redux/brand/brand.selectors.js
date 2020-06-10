@@ -17,12 +17,22 @@ export const selectBrandsForSelectInput = (brandsToExclude) => createSelector(
     (items) => items.filter(item => !brandsToExclude.includes(item.id))
 );
 
-export const selectBrandsTotal = createSelector(
-    [selectBrands],
-    (brands) => brands.items ? brands.items.length : 0
-);
-
 export const selectIsLoading = createSelector(
     [selectBrands],
     (brands) => brands.loading
+);
+
+export const selectPagination = createSelector(
+    [selectBrands],
+    (brands) => brands.pagination
+);
+
+export const selectCurrentPage = createSelector(
+    [selectPagination],
+    (pagination) => pagination.current_page
+);
+
+export const selectBrandsTotal = createSelector(
+    [selectPagination],
+    (pagination) => pagination.total
 );

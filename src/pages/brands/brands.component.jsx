@@ -1,8 +1,7 @@
-import React, { useEffect } from 'react';
-import { connect } from "react-redux";
+import React  from 'react';
 import { Route } from 'react-router-dom';
 
-import BrandsListContainer from "../../components/brands-list/brands-list.container";
+import BrandsOverviewPage from "./brands-overview/brands-overview.component";
 import CreateBrandPage from "./create-brand/create-brand.component";
 import EditBrandPageContainer from "./edit-brand/edit-brand.container";
 import DeleteBrandPageContainer from "./delete-brand/delete-brand.container";
@@ -11,16 +10,11 @@ import BlacklistBrandPageContainer from "./blacklist-brand/blacklist-brand.conta
 import ConvertBrandPageContainer from "./convert-brand/convert-brand.container";
 import EditBrandMappingPageContainer from "../brand-mapping/edit-brand-mapping.container";
 
-import { getAll } from "../../redux/brand/brand.actions";
-
-const BrandsPage = ({ match, getAllBrands }) => {
-    useEffect(() => {
-        getAllBrands();
-    }, [getAllBrands]);
+const BrandsPage = ({ match }) => {
 
     return (
         <div className="brands-page">
-            <Route exact path={`${match.path}/`} component={BrandsListContainer} />
+            <Route exact path={`${match.path}/`} component={BrandsOverviewPage} />
             <Route path={`${match.path}/create`} component={CreateBrandPage} />
             <Route path={`${match.path}/show/:brandId`} component={ShowBrandPageContainer} />
             <Route path={`${match.path}/edit/:brandId`} component={EditBrandPageContainer} />
@@ -28,13 +22,10 @@ const BrandsPage = ({ match, getAllBrands }) => {
             <Route path={`${match.path}/blacklist/:brandId`} component={BlacklistBrandPageContainer} />
             <Route path={`${match.path}/convert/:brandId`} component={ConvertBrandPageContainer} />
             <Route path={`${match.path}/:brandId/mapping/edit/:mappingId`} component={EditBrandMappingPageContainer} />
-            <Route path={`${match.path}/:brandId/mapping/delete/:mappingId`} component={EditBrandMappingPageContainer} />
+            <Route path={`${match.path}/:brandId/mapping/delete/:mappingId`}
+                   component={EditBrandMappingPageContainer} />
         </div>
     );
 };
 
-const mapDispatchToProps = dispatch => ({
-    getAllBrands: () => dispatch(getAll())
-});
-
-export default connect(null, mapDispatchToProps)(BrandsPage);
+export default BrandsPage;

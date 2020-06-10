@@ -3,6 +3,12 @@ import { brandActionTypes } from "./brand.types";
 const INITIAL_STATE = {
     loading: false,
     items: [],
+    pagination: {
+        current_page: 1,
+        last_page: 1,
+        per_page: 25,
+        total: 0
+    },
     error: null
 };
 
@@ -22,10 +28,17 @@ const brandReducer = (state = INITIAL_STATE, action) => {
             };
         case brandActionTypes.GETALL_SUCCESS:
         case brandActionTypes.GETONE_SUCCESS:
+            console.log(action.payload);
             return {
                 ...state,
                 loading: false,
-                items: action.payload,
+                items: action.payload.data,
+                pagination: {
+                    current_page: action.payload.current_page,
+                    last_page: action.payload.last_page,
+                    per_page: action.payload.per_page,
+                    total: action.payload.total,
+                },
                 error: null
             };
         case brandActionTypes.GETALL_FAILURE:
@@ -34,6 +47,12 @@ const brandReducer = (state = INITIAL_STATE, action) => {
                 ...state,
                 loading: false,
                 items: [],
+                pagination: {
+                    current_page: 1,
+                    last_page: 1,
+                    per_page: 25,
+                    total: 0
+                },
                 error: action.payload
             };
         case brandActionTypes.CREATE_SUCCESS:
@@ -82,6 +101,14 @@ const brandReducer = (state = INITIAL_STATE, action) => {
                 ...state,
                 loading: false,
                 error: action.payload
+            };
+        case brandActionTypes.CHANGE_CURRENT_PAGE:
+            return {
+                ...state,
+                pagination: {
+                    ...state.pagination,
+                    current_page: action.payload,
+                },
             };
         default:
             return state;
