@@ -56,3 +56,33 @@ export const create = (brandId, formData) => {
             });
     };
 };
+
+export const update = (brandId, mappingId, formData) => {
+    const request = () => ({ type: brandMappingActionTypes.UPDATE_REQUEST });
+    const successResult = (brandMapping) => ({
+        type: brandMappingActionTypes.UPDATE_SUCCESS,
+        payload: { brandId, brandMapping }
+    });
+    const failureResult = (error) => ({ type: brandMappingActionTypes.UPDATE_FAILURE, payload: error });
+
+    return async (dispatch, getState) => {
+        dispatch(request());
+
+        console.log(formData);
+
+        await backend.patch('/brands/' + brandId + '/mappings/' + mappingId, formData, {
+            headers: authHeader(getState())
+        })
+            .then(({ data }) => {
+                const brandMapping = JSON.parse(data);
+                dispatch(successResult(brandMapping));
+                dispatch(success('Mapping Updated!', `Brand's mapping was successfully updated.`));
+                history.push('/brands/show/' + brandId);
+            })
+            .catch((error) => {
+                console.log(error.message);
+                dispatch(failureResult(error.message));
+                dispatch(errorAlert('Something went wrong!', error.message));
+            });
+    };
+};

@@ -27,8 +27,6 @@ const brandReducer = (state = INITIAL_STATE, action) => {
                 error: null
             };
         case brandActionTypes.GETALL_SUCCESS:
-        case brandActionTypes.GETONE_SUCCESS:
-            console.log(action.payload);
             return {
                 ...state,
                 loading: false,
@@ -55,6 +53,7 @@ const brandReducer = (state = INITIAL_STATE, action) => {
                 },
                 error: action.payload
             };
+        case brandActionTypes.GETONE_SUCCESS:
         case brandActionTypes.CREATE_SUCCESS:
             return {
                 ...state,

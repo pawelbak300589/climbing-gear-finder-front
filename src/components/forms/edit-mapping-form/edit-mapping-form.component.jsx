@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 
 import Container from "react-bootstrap/Container";
@@ -7,19 +7,27 @@ import Col from "react-bootstrap/Col";
 import Form from "react-bootstrap/Form";
 
 import CustomButton from "../../custom-button/custom-button.component";
-import { create } from "../../../redux/brand-mapping/brand-mapping.actions";
+import { update } from "../../../redux/brand-mapping/brand-mapping.actions";
 
-const CreateMappingForm = ({ brandId, createMapping }) => {
+const EditMappingForm = ({ brandId, mapping, updateMapping }) => {
     const [formData, setFormData] = useState({
         mappingName: '',
     });
+
+    useEffect(() => {
+        if (mapping) {
+            setFormData({
+                mappingName: mapping.name,
+            });
+        }
+    }, [mapping]);
 
     const { mappingName } = formData;
 
     const handleSubmit = (event) => {
         event.preventDefault();
 
-        createMapping(brandId, { name: mappingName });
+        updateMapping(brandId, mapping.id, { name: mappingName });
     };
 
     const handleChange = (event) => {
@@ -32,11 +40,6 @@ const CreateMappingForm = ({ brandId, createMapping }) => {
         <Container className="create-mapping-form mb-3">
             <Row>
                 <Col>
-                    <h4>Create New Mapping</h4>
-                </Col>
-            </Row>
-            <Row>
-                <Col>
                     <Form onSubmit={handleSubmit}>
                         <Form.Group controlId="mappingName">
                             <Form.Control name="mappingName"
@@ -46,7 +49,7 @@ const CreateMappingForm = ({ brandId, createMapping }) => {
                                           placeholder="Mapping Text"
                                           required />
                         </Form.Group>
-                        <CustomButton type="submit" variant="success">Create new mapping</CustomButton>
+                        <CustomButton type="submit" variant="primary">Update mapping</CustomButton>
                     </Form>
                 </Col>
             </Row>
@@ -55,7 +58,7 @@ const CreateMappingForm = ({ brandId, createMapping }) => {
 };
 
 const mapDispatchToProps = dispatch => ({
-    createMapping: (brandId, formData) => dispatch(create(brandId, formData))
+    updateMapping: (brandId, mappingId, formData) => dispatch(update(brandId, mappingId, formData))
 });
 
-export default connect(null, mapDispatchToProps)(CreateMappingForm);
+export default connect(null, mapDispatchToProps)(EditMappingForm);

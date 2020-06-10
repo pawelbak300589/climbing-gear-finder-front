@@ -17,7 +17,7 @@ import { selectBrandsTotal, selectCurrentPage } from "../../../redux/brand/brand
 const BrandsOverviewPage = ({ match, brandsTotal, currentPage, getAllBrands }) => {
     useEffect(() => {
         getAllBrands();
-    }, []);
+    }, [getAllBrands]);
 
     return (
         <div className="brands-overview-page">

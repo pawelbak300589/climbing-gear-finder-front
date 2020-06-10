@@ -44,15 +44,18 @@ const brandMappingReducer = (state = INITIAL_STATE, action) => {
             return {
                 ...state,
                 loading: false,
-                items: state.items.map((item) => {
-                    if (item.id === action.payload.id) {
-                        return { // return updated item
-                            ...item,
-                            ...action.payload
-                        };
-                    }
-                    return item; // return item without change
-                }),
+                items: {
+                    ...state.items,
+                    [action.payload.brandId]: state.items[action.payload.brandId].map((mapping) => {
+                        if (mapping.id === action.payload.brandMapping.id) {
+                            return { // return updated mapping
+                                ...mapping,
+                                ...action.payload.brandMapping
+                            };
+                        }
+                        return mapping; // return mapping without change
+                    }),
+                },
                 error: null
             };
         case brandMappingActionTypes.DELETE_SUCCESS:

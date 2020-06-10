@@ -24,7 +24,7 @@ const BrandDetails = ({ brand, brandMappingsExist, getAllMappingsByBrandId }) =>
         if (!brandMappingsExist) {
             getAllMappingsByBrandId(brand.id);
         }
-    }, [brand]);
+    }, [brand, brandMappingsExist, getAllMappingsByBrandId]);
 
     return (
         <>
