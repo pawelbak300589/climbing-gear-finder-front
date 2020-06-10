@@ -1,4 +1,4 @@
-import React  from 'react';
+import React from 'react';
 import { Route } from 'react-router-dom';
 
 import BrandsOverviewPage from "./brands-overview/brands-overview.component";
@@ -8,7 +8,8 @@ import DeleteBrandPageContainer from "./delete-brand/delete-brand.container";
 import ShowBrandPageContainer from "./show-brand/show-brand.container";
 import BlacklistBrandPageContainer from "./blacklist-brand/blacklist-brand.container";
 import ConvertBrandPageContainer from "./convert-brand/convert-brand.container";
-import EditBrandMappingPageContainer from "../brand-mapping/edit-brand-mapping.container";
+import EditBrandMappingPageContainer from "../brand-mapping/edit-brand-mapping/edit-brand-mapping.container";
+import DeleteBrandMappingPageContainer from "../brand-mapping/delete-brand-mapping/delete-brand-mapping.container";
 
 const BrandsPage = ({ match }) => {
 
@@ -23,7 +24,7 @@ const BrandsPage = ({ match }) => {
             <Route path={`${match.path}/convert/:brandId`} component={ConvertBrandPageContainer} />
             <Route path={`${match.path}/:brandId/mapping/edit/:mappingId`} component={EditBrandMappingPageContainer} />
             <Route path={`${match.path}/:brandId/mapping/delete/:mappingId`}
-                   component={EditBrandMappingPageContainer} />
+                   component={DeleteBrandMappingPageContainer} />
         </div>
     );
 };

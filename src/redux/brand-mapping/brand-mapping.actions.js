@@ -68,8 +68,6 @@ export const update = (brandId, mappingId, formData) => {
     return async (dispatch, getState) => {
         dispatch(request());
 
-        console.log(formData);
-
         await backend.patch('/brands/' + brandId + '/mappings/' + mappingId, formData, {
             headers: authHeader(getState())
         })
@@ -77,6 +75,33 @@ export const update = (brandId, mappingId, formData) => {
                 const brandMapping = JSON.parse(data);
                 dispatch(successResult(brandMapping));
                 dispatch(success('Mapping Updated!', `Brand's mapping was successfully updated.`));
+                history.push('/brands/show/' + brandId);
+            })
+            .catch((error) => {
+                console.log(error.message);
+                dispatch(failureResult(error.message));
+                dispatch(errorAlert('Something went wrong!', error.message));
+            });
+    };
+};
+
+export const remove = (brandId, mappingId) => {
+    const request = () => ({ type: brandMappingActionTypes.DELETE_REQUEST });
+    const successResult = (mappingId) => ({
+        type: brandMappingActionTypes.DELETE_SUCCESS,
+        payload: { brandId, mappingId }
+    });
+    const failureResult = (error) => ({ type: brandMappingActionTypes.DELETE_FAILURE, payload: error });
+
+    return async (dispatch, getState) => {
+        dispatch(request());
+
+        await backend.delete('/brands/' + brandId + '/mappings/' + mappingId, {
+            headers: authHeader(getState())
+        })
+            .then(({ data }) => {
+                dispatch(successResult());
+                dispatch(success('Mapping Removed!', `Brand's mapping successfully removed.`));
                 history.push('/brands/show/' + brandId);
             })
             .catch((error) => {

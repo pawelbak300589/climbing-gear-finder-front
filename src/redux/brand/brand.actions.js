@@ -12,8 +12,6 @@ export const getAll = () => {
     return async (dispatch, getState) => {
         dispatch(request());
 
-        // console.log(getState().brands.pagination);
-
         await backend.get('/brands', {
             params: {
                 page: getState().brands.pagination.current_page,
@@ -22,7 +20,6 @@ export const getAll = () => {
             headers: authHeader(getState())
         })
             .then(({ data }) => {
-                // console.log(JSON.parse(data));
                 dispatch(successResult(JSON.parse(data)));
             })
             .catch((error) => {
@@ -45,7 +42,6 @@ export const getOne = (brandId) => {
             headers: authHeader(getState())
         })
             .then(({ data }) => {
-                console.log(JSON.parse(data));
                 dispatch(successResult(JSON.parse(data)));
             })
             .catch((error) => {

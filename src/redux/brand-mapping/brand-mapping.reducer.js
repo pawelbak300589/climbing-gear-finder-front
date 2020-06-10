@@ -24,12 +24,6 @@ const brandMappingReducer = (state = INITIAL_STATE, action) => {
                 items: { ...state.items, [action.payload.brandId]: action.payload.brandMappings },
                 error: null
             };
-        case brandMappingActionTypes.GETALL_BY_BRAND_FAILURE:
-            return {
-                ...state,
-                loading: false,
-                error: action.payload
-            };
         case brandMappingActionTypes.CREATE_SUCCESS:
             return {
                 ...state,
@@ -59,12 +53,17 @@ const brandMappingReducer = (state = INITIAL_STATE, action) => {
                 error: null
             };
         case brandMappingActionTypes.DELETE_SUCCESS:
+            console.log(state.items[action.payload.brandId]); // TODO: problem with not removing removed mapping from redux store
             return {
                 ...state,
                 loading: false,
-                items: state.items.filter((item) => item.id !== action.payload),
+                items: {
+                    ...state.items,
+                    [action.payload.brandId]: state.items[action.payload.brandId].filter((mapping) => mapping.id !== action.payload.mappingId)
+                },
                 error: null
             };
+        case brandMappingActionTypes.GETALL_BY_BRAND_FAILURE:
         case brandMappingActionTypes.CREATE_FAILURE:
         case brandMappingActionTypes.UPDATE_FAILURE:
         case brandMappingActionTypes.DELETE_FAILURE:
