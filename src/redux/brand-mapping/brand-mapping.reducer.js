@@ -53,7 +53,6 @@ const brandMappingReducer = (state = INITIAL_STATE, action) => {
                 error: null
             };
         case brandMappingActionTypes.DELETE_SUCCESS:
-            console.log(state.items[action.payload.brandId]); // TODO: problem with not removing removed mapping from redux store
             return {
                 ...state,
                 loading: false,

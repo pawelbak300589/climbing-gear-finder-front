@@ -87,7 +87,7 @@ export const update = (brandId, mappingId, formData) => {
 
 export const remove = (brandId, mappingId) => {
     const request = () => ({ type: brandMappingActionTypes.DELETE_REQUEST });
-    const successResult = (mappingId) => ({
+    const successResult = () => ({
         type: brandMappingActionTypes.DELETE_SUCCESS,
         payload: { brandId, mappingId }
     });
