@@ -15,7 +15,6 @@ const EditBrandForm = ({ brand, updateBrand }) => {
     const [formData, setFormData] = useState({
         brandName: '',
         url: '',
-        img: ''
     });
 
     useEffect(() => {
@@ -23,18 +22,17 @@ const EditBrandForm = ({ brand, updateBrand }) => {
             setFormData({
                 brandName: brand.name,
                 url: brand.url,
-                img: brand.img
             });
         }
     }, [brand]);
 
 
-    const { brandName, url, img } = formData;
+    const { brandName, url } = formData;
 
     const handleSubmit = (event) => {
         event.preventDefault();
 
-        updateBrand(brand.id, { name: brandName, url, img });
+        updateBrand(brand.id, { name: brandName, url });
     };
 
     const handleChange = (event) => {
@@ -66,14 +64,6 @@ const EditBrandForm = ({ brand, updateBrand }) => {
                             <Form.Control name="url"
                                           type="text"
                                           value={url}
-                                          onChange={handleChange}
-                                          required />
-                        </Form.Group>
-                        <Form.Group controlId="img">
-                            <Form.Label>Image</Form.Label>
-                            <Form.Control name="img"
-                                          type="text"
-                                          value={img}
                                           onChange={handleChange}
                                           required />
                         </Form.Group>

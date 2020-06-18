@@ -16,15 +16,14 @@ const CreateBrandForm = ({ createBrand }) => {
     const [formData, setFormData] = useState({
         brandName: '',
         url: '',
-        img: ''
     });
 
-    const { brandName, url, img } = formData;
+    const { brandName, url } = formData;
 
     const handleSubmit = (event) => {
         event.preventDefault();
 
-        createBrand({ name: brandName, url, img });
+        createBrand({ name: brandName, url });
     };
 
     const handleChange = (event) => {
@@ -56,14 +55,6 @@ const CreateBrandForm = ({ createBrand }) => {
                             <Form.Control name="url"
                                           type="text"
                                           value={url}
-                                          onChange={handleChange}
-                                          required />
-                        </Form.Group>
-                        <Form.Group controlId="img">
-                            <Form.Label>Image</Form.Label>
-                            <Form.Control name="img"
-                                          type="text"
-                                          value={img}
                                           onChange={handleChange}
                                           required />
                         </Form.Group>

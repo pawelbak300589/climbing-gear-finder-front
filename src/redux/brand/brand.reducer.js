@@ -2,6 +2,9 @@ import { brandActionTypes } from "./brand.types";
 
 const INITIAL_STATE = {
     loading: false,
+    // TODO: think what should be visible for normal user and what for admin
+    //  maybe different API calls, or checking user role in the API and returning different data for brands.
+    //  that's because brands can be used for normal user view too : like brand select input or similar...
     items: [],
     pagination: {
         current_page: 1,
