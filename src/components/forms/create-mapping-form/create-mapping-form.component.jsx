@@ -29,24 +29,32 @@ const CreateMappingForm = ({ brandId, createMapping }) => {
     };
 
     return (
-        <Container className="create-mapping-form mb-3">
-            <Row>
-                <Col>
-                    <h4>Create New Mapping</h4>
-                </Col>
-            </Row>
+        <Container className="create-mapping-form">
             <Row>
                 <Col>
                     <Form onSubmit={handleSubmit}>
-                        <Form.Group controlId="mappingName">
-                            <Form.Control name="mappingName"
-                                          type="text"
-                                          value={mappingName}
-                                          onChange={handleChange}
-                                          placeholder="Mapping Text"
-                                          required />
-                        </Form.Group>
-                        <CustomButton type="submit" variant="success">Create new mapping</CustomButton>
+                        <Form.Row className="align-items-center">
+                            <Col xs="auto">
+                                <Form.Label htmlFor="mappingName">
+                                    <h3>Name Mappings:</h3>
+                                </Form.Label>
+                            </Col>
+                            <Col xs="auto">
+                                <Form.Control
+                                    id="mappingName"
+                                    className="mb-2"
+                                    name="mappingName"
+                                    type="text"
+                                    value={mappingName}
+                                    onChange={handleChange}
+                                    placeholder="New mapping text"
+                                    required
+                                />
+                            </Col>
+                            <Col xs="auto">
+                                <CustomButton className="mb-2" type="submit" variant="success">Create new mapping</CustomButton>
+                            </Col>
+                        </Form.Row>
                     </Form>
                 </Col>
             </Row>

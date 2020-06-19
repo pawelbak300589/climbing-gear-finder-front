@@ -21,7 +21,6 @@ const MappingsList = ({ brandId, brandMappings }) => {
             <Row>
                 <Col>
                     <div className="mapping-list">
-                        <h4>Name Mappings:</h4>
                         <ListGroup variant="flush">
                             {
                                 brandMappings && brandMappings.map((mapping) =>
