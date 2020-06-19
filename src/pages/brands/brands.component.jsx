@@ -10,6 +10,8 @@ import BlacklistBrandPageContainer from "./blacklist-brand/blacklist-brand.conta
 import ConvertBrandPageContainer from "./convert-brand/convert-brand.container";
 import EditBrandMappingPageContainer from "../brand-mapping/edit-brand-mapping/edit-brand-mapping.container";
 import DeleteBrandMappingPageContainer from "../brand-mapping/delete-brand-mapping/delete-brand-mapping.container";
+import MainBrandImagePageContainer from "../brand-image/main-brand-image/main-brand-image.container";
+import EditBrandImagePageContainer from "../brand-image/edit-brand-image/edit-brand-image.container";
 
 const BrandsPage = ({ match }) => {
 
@@ -24,6 +26,10 @@ const BrandsPage = ({ match }) => {
             <Route path={`${match.path}/convert/:brandId`} component={ConvertBrandPageContainer} />
             <Route path={`${match.path}/:brandId/mapping/edit/:mappingId`} component={EditBrandMappingPageContainer} />
             <Route path={`${match.path}/:brandId/mapping/delete/:mappingId`}
+                   component={DeleteBrandMappingPageContainer} />
+            <Route path={`${match.path}/:brandId/image/main/:mappingId`} component={MainBrandImagePageContainer} />
+            <Route path={`${match.path}/:brandId/image/edit/:mappingId`} component={EditBrandImagePageContainer} />
+            <Route path={`${match.path}/:brandId/image/delete/:mappingId`}
                    component={DeleteBrandMappingPageContainer} />
         </div>
     );

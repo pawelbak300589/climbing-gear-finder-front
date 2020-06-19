@@ -7,19 +7,19 @@ import Col from "react-bootstrap/Col";
 import Form from "react-bootstrap/Form";
 
 import CustomButton from "../../custom-button/custom-button.component";
-import { create } from "../../../redux/brand-mapping/brand-mapping.actions";
+import { create } from "../../../redux/brand-images/brand-images.actions";
 
-const CreateMappingForm = ({ brandId, createMapping }) => {
+const CreateImageForm = ({ brandId, createImage }) => {
     const [formData, setFormData] = useState({
-        mappingName: '',
+        src: '',
     });
 
-    const { mappingName } = formData;
+    const { src } = formData;
 
     const handleSubmit = (event) => {
         event.preventDefault();
 
-        createMapping(brandId, { name: mappingName });
+        createImage(brandId, { src });
     };
 
     const handleChange = (event) => {
@@ -29,30 +29,32 @@ const CreateMappingForm = ({ brandId, createMapping }) => {
     };
 
     return (
-        <Container className="create-mapping-form mt-2">
+        <Container className="create-image-form mt-2">
             <Row>
                 <Col>
                     <Form onSubmit={handleSubmit}>
                         <Form.Row className="align-items-center">
                             <Col xs="auto">
-                                <Form.Label htmlFor="mappingName">
-                                    <h3>Name Mappings:</h3>
+                                <Form.Label htmlFor="src">
+                                    <h3>Images:</h3>
                                 </Form.Label>
                             </Col>
                             <Col xs="auto">
                                 <Form.Control
-                                    id="mappingName"
+                                    id="src"
                                     className="mb-2"
-                                    name="mappingName"
+                                    name="src"
                                     type="text"
-                                    value={mappingName}
+                                    value={src}
                                     onChange={handleChange}
-                                    placeholder="New mapping text"
+                                    placeholder="New image URL"
                                     required
                                 />
                             </Col>
                             <Col xs="auto">
-                                <CustomButton className="mb-2" type="submit" variant="success">Add new mapping</CustomButton>
+                                <CustomButton className="mb-2" type="submit" variant="success">
+                                    Add new image
+                                </CustomButton>
                             </Col>
                         </Form.Row>
                     </Form>
@@ -63,7 +65,7 @@ const CreateMappingForm = ({ brandId, createMapping }) => {
 };
 
 const mapDispatchToProps = dispatch => ({
-    createMapping: (brandId, formData) => dispatch(create(brandId, formData))
+    createImage: (brandId, formData) => dispatch(create(brandId, formData))
 });
 
-export default connect(null, mapDispatchToProps)(CreateMappingForm);
+export default connect(null, mapDispatchToProps)(CreateImageForm);

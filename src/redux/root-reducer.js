@@ -6,6 +6,7 @@ import authReducer from "./auth/auth.reducer";
 import alertsReducer from "./alerts/alerts.reducer";
 import brandReducer from "./brand/brand.reducer";
 import brandMappingReducer from "./brand-mapping/brand-mapping.reducer";
+import brandImagesReducer from "./brand-images/brand-images.reducer";
 
 const persistConfig = {
     key: 'root',
@@ -18,6 +19,7 @@ const rootReducer = combineReducers({
     alerts: alertsReducer,
     brands: brandReducer,
     brandMappings: brandMappingReducer,
+    brandImages: brandImagesReducer,
 });
 
 export default persistReducer(persistConfig, rootReducer);
