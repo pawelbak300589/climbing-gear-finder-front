@@ -76,7 +76,6 @@ export const create = (brandId, formData) => {
                 dispatch(success('Brand Image Created!', 'New brand image is successfully created.'));
             }) // TODO:
             .catch((error) => {
-                console.log(error);
                 console.log(error.message);
                 dispatch(failureResult(error.message));
                 dispatch(errorAlert('Something went wrong!', error.message));
