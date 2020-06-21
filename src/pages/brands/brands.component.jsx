@@ -12,6 +12,7 @@ import EditBrandMappingPageContainer from "../brand-mapping/edit-brand-mapping/e
 import DeleteBrandMappingPageContainer from "../brand-mapping/delete-brand-mapping/delete-brand-mapping.container";
 import MainBrandImagePageContainer from "../brand-image/main-brand-image/main-brand-image.container";
 import EditBrandImagePageContainer from "../brand-image/edit-brand-image/edit-brand-image.container";
+import DeleteBrandImagePageContainer from "../brand-image/delete-brand-image/delete-brand-image.container";
 
 const BrandsPage = ({ match }) => {
 
@@ -27,10 +28,10 @@ const BrandsPage = ({ match }) => {
             <Route path={`${match.path}/:brandId/mapping/edit/:mappingId`} component={EditBrandMappingPageContainer} />
             <Route path={`${match.path}/:brandId/mapping/delete/:mappingId`}
                    component={DeleteBrandMappingPageContainer} />
-            <Route path={`${match.path}/:brandId/image/main/:mappingId`} component={MainBrandImagePageContainer} />
-            <Route path={`${match.path}/:brandId/image/edit/:mappingId`} component={EditBrandImagePageContainer} />
-            <Route path={`${match.path}/:brandId/image/delete/:mappingId`}
-                   component={DeleteBrandMappingPageContainer} />
+            <Route path={`${match.path}/:brandId/image/main/:imageId`} component={MainBrandImagePageContainer} />
+            <Route path={`${match.path}/:brandId/image/edit/:imageId`} component={EditBrandImagePageContainer} />
+            <Route path={`${match.path}/:brandId/image/delete/:imageId`}
+                   component={DeleteBrandImagePageContainer} />
         </div>
     );
 };

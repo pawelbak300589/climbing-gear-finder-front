@@ -19,6 +19,7 @@ const brandImagesReducer = (state = INITIAL_STATE, action) => {
                 error: null
             };
         case brandImagesActionTypes.GETALL_BY_BRAND_SUCCESS:
+        case brandImagesActionTypes.DELETE_SUCCESS:
             return {
                 ...state,
                 loading: false,
@@ -50,16 +51,6 @@ const brandImagesReducer = (state = INITIAL_STATE, action) => {
                         }
                         return image; // return image without change
                     }),
-                },
-                error: null
-            };
-        case brandImagesActionTypes.DELETE_SUCCESS:
-            return {
-                ...state,
-                loading: false,
-                items: {
-                    ...state.items,
-                    [action.payload.brandId]: state.items[action.payload.brandId].filter((image) => image.id !== action.payload.imageId)
                 },
                 error: null
             };

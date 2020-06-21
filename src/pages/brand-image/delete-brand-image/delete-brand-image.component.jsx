@@ -9,10 +9,10 @@ import BrandDetails from "../../../components/brand-details/brand-details.compon
 
 import { getOne } from "../../../redux/brand/brand.actions";
 import { selectBrand } from "../../../redux/brand/brand.selectors";
+import { remove } from "../../../redux/brand-images/brand-images.actions";
 import { selectBrandImageData } from "../../../redux/brand-images/brand-images.selectors";
-import { setAsMain } from "../../../redux/brand-images/brand-images.actions";
 
-const MainBrandImagePage = ({ brand, image, setAsMainImage, getBrandDetails }) => {
+const DeleteBrandImagePage = ({ brand, image, removeImage, getBrandDetails }) => {
     useEffect(() => {
         if (brand === undefined) {
             getBrandDetails();
@@ -28,22 +28,22 @@ const MainBrandImagePage = ({ brand, image, setAsMainImage, getBrandDetails }) =
     };
 
     const renderModal = () => {
-        if (brand) {
+        if (brand && image) {
             const renderActions = () => {
                 return (
                     <>
                         <CustomButton type="link" to={`/brands/show/${brand.id}`} variant="light">Cancel</CustomButton>
                         <CustomButton type="button"
-                                      onClick={() => setAsMainImage(brand.id, image.id)}
-                                      variant="dark">Set as Main Image</CustomButton>
+                                      onClick={() => removeImage(brand.id, image.id)}
+                                      variant="danger">Delete</CustomButton>
                     </>
                 );
             };
 
             return (
                 <Modal
-                    title={`Set as main image`}
-                    content={`Are you sure you want to set ${image.alt} as main image?`}
+                    title={`Delete image: ${image.alt}`}
+                    content={`Are you sure you want to delete ${image.alt} image?`}
                     actions={renderActions()}
                     onDismiss={() => history.push(`/brands/show/${brand.id}`)}
                 />
@@ -66,7 +66,7 @@ const mapStateToProps = (state, ownProps) => ({
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
     getBrandDetails: () => dispatch(getOne(ownProps.match.params.brandId)),
-    setAsMainImage: (brandId, imageId) => dispatch(setAsMain(brandId, imageId))
+    removeImage: (brandId, imageId) => dispatch(remove(brandId, imageId))
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(MainBrandImagePage);
+export default connect(mapStateToProps, mapDispatchToProps)(DeleteBrandImagePage);
