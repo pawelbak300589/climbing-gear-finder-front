@@ -20,7 +20,7 @@ const editBrandImageFormData = {
         ]
     },
     button: {
-        text: 'Update ',
+        text: 'Update image',
         variant: 'primary',
     }
 };

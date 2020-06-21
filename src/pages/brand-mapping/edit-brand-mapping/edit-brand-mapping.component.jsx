@@ -6,13 +6,16 @@ import { history } from "../../../helpers";
 import Modal from "../../../components/modal/modal.component";
 import CustomButton from "../../../components/custom-button/custom-button.component";
 import BrandDetails from "../../../components/brand-details/brand-details.component";
-import EditMappingForm from "../../../components/forms/edit-mapping-form/edit-mapping-form.component";
+import CustomForm from "../../../components/forms/custom-form/custom-form.component";
 
 import { getOne } from "../../../redux/brand/brand.actions";
 import { selectBrand } from "../../../redux/brand/brand.selectors";
-import { selectBrandMappingData } from "../../../redux/brand-mapping/brand-mapping.selectors";
+import { update } from "../../../redux/brand-mapping/brand-mapping.actions";
 
-const EditBrandMappingPage = ({ brand, mapping, getBrandDetails }) => {
+import { selectBrandMappingData } from "../../../redux/brand-mapping/brand-mapping.selectors";
+import editBrandMappingFormData from "../../../components/forms/edit-brand-mapping-form.data";
+
+const EditBrandMappingPage = ({ brand, mapping, getBrandDetails, updateMapping }) => {
     useEffect(() => {
         if (brand === undefined) {
             getBrandDetails();
@@ -29,9 +32,13 @@ const EditBrandMappingPage = ({ brand, mapping, getBrandDetails }) => {
 
     const renderModalContent = () => {
         if (brand && mapping) {
-            return (
-                <EditMappingForm brandId={brand.id} mapping={mapping} />
-            );
+            const updatedFormData = {
+                ...editBrandMappingFormData,
+                initial: {
+                    name: mapping.name,
+                }
+            };
+            return <CustomForm data={updatedFormData} onSubmit={(formData) => updateMapping(brand.id, mapping.id, formData)} />;
         }
     };
 
@@ -70,7 +77,8 @@ const mapStateToProps = (state, ownProps) => ({
 });
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
-    getBrandDetails: () => dispatch(getOne(ownProps.match.params.brandId))
+    getBrandDetails: () => dispatch(getOne(ownProps.match.params.brandId)),
+    updateMapping: (brandId, mappingId, formData) => dispatch(update(brandId, mappingId, formData))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(EditBrandMappingPage);
