@@ -39,7 +39,6 @@ const EditBrandImagePage = ({ brand, image, getBrandDetails, updateImage }) => {
                     alt: image.alt,
                 }
             };
-            // return <CustomForm data={updatedFormData} onSubmit={(formData) => console.log(formData)} />;
             return <CustomForm data={updatedFormData} onSubmit={(formData) => updateImage(brand.id, image.id, formData)} />;
         }
     };
