@@ -10,20 +10,27 @@ import BrandItemButtons from "../item-buttons/brand-item-buttons.component";
 import CustomBreadcrumb from "../custom-breadcrumb/custom-breadcrumb.component";
 import MappingsListContainer from "../mappings-list/mappings-list.container";
 import ImagesListContainer from "../images-list/images-list.container";
-import CreateMappingForm from "../forms/create-mapping-form/create-mapping-form.component";
-import CreateImageForm from "../forms/create-image-form/create-image-form.component";
 import Break from "../break/break.component";
+import CustomInlineForm from "../forms/custom-inline-form/custom-inline-form.component";
 
 import { showBrandPageBreadcrumbItems } from "../custom-breadcrumb/custom-breadcrumb.data";
+import createBrandImageFormData from "../forms/create-brand-image-form.data";
+import createBrandMappingFormData from "../forms/create-brand-mapping-form.data";
 
-import { getAllByBrandId as getAllMappingsByBrandId } from "../../redux/brand-mapping/brand-mapping.actions";
-import { getAllByBrandId as getAllImagesByBrandId } from "../../redux/brand-images/brand-images.actions";
+import {
+    create as createMappingAction,
+    getAllByBrandId as getAllMappingsByBrandId
+} from "../../redux/brand-mapping/brand-mapping.actions";
+import {
+    create as createImageAction,
+    getAllByBrandId as getAllImagesByBrandId
+} from "../../redux/brand-images/brand-images.actions";
 import { selectBrandMappingsExist } from "../../redux/brand-mapping/brand-mapping.selectors";
 import { selectBrandImageExist } from "../../redux/brand-images/brand-images.selectors";
 
 import './brand-details.styles.scss';
 
-const BrandDetails = ({ brand, brandMappingsExist, brandImagesExist, getAllMappings, getAllImages }) => {
+const BrandDetails = ({ brand, brandMappingsExist, brandImagesExist, getAllMappings, getAllImages, createImage, createMapping }) => {
     useEffect(() => {
         if (!brandMappingsExist) {
             getAllMappings(brand.id);
@@ -57,11 +64,25 @@ const BrandDetails = ({ brand, brandMappingsExist, brandImagesExist, getAllMappi
                 </Row>
             </Container>
             <Break />
-            <CreateImageForm brandId={brand.id} imageType="brand" />
+            <Container>
+                <Row>
+                    <Col>
+                        <CustomInlineForm data={createBrandImageFormData}
+                                          onSubmit={(formData) => createImage(brand.id, formData)} />
+                    </Col>
+                </Row>
+            </Container>
             <Break />
             <ImagesListContainer brandId={brand.id} />
             <Break />
-            <CreateMappingForm brandId={brand.id} mappingType="brand" />
+            <Container>
+                <Row>
+                    <Col>
+                        <CustomInlineForm data={createBrandMappingFormData}
+                                          onSubmit={(formData) => createMapping(brand.id, formData)} />
+                    </Col>
+                </Row>
+            </Container>
             <Break />
             <MappingsListContainer brandId={brand.id} />
         </>
@@ -76,6 +97,8 @@ const mapStateToProps = (state, ownProps) => ({
 const mapDispatchToProps = dispatch => ({
     getAllMappings: (brandId) => dispatch(getAllMappingsByBrandId(brandId)),
     getAllImages: (brandId) => dispatch(getAllImagesByBrandId(brandId)),
+    createImage: (brandId, formData) => dispatch(createImageAction(brandId, formData)),
+    createMapping: (brandId, formData) => dispatch(createMappingAction(brandId, formData))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(BrandDetails);
