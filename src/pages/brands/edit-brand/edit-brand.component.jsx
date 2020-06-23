@@ -24,7 +24,6 @@ const EditBrandPage = ({ brand, updateBrand, getBrandDetails }) => {
                 ...editBrandFormData,
                 initial: {
                     name: brand.name,
-                    url: brand.url,
                 }
             };
             return <CustomForm data={updatedFormData} onSubmit={(formData) => updateBrand(brand.id, formData)} />;

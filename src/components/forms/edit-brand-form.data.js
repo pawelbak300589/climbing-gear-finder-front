@@ -1,7 +1,6 @@
 const editBrandFormData = {
     initial: {
         name: '',
-        url: '',
     },
     form: {
         title: "Edit Brand",
@@ -10,11 +9,6 @@ const editBrandFormData = {
             {
                 label: 'Brand Name',
                 name: 'name',
-                type: 'text',
-            },
-            {
-                label: 'Brand URL',
-                name: 'url',
                 type: 'text',
             }
         ]

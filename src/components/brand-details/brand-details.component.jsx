@@ -49,7 +49,7 @@ const BrandDetails = ({ brand, brandMappingsExist, brandImagesExist, getAllMappi
             <Container className="brand-details pb-3">
                 <Row>
                     <Col>
-                        <h2>{brand.name} <Badge variant="secondary"><a href={brand.url}>{brand.url}</a></Badge></h2>
+                        <h2>{brand.name}</h2>
                     </Col>
                 </Row>
                 <Row>
