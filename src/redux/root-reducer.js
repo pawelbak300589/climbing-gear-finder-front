@@ -8,6 +8,7 @@ import brandReducer from "./brand/brand.reducer";
 import brandMappingReducer from "./brand-mapping/brand-mapping.reducer";
 import brandImagesReducer from "./brand-images/brand-images.reducer";
 import brandUrlsReducer from "./brand-urls/brand-urls.reducer";
+import websiteReducer from "./website/website.reducer";
 
 const persistConfig = {
     key: 'root',
@@ -18,6 +19,7 @@ const persistConfig = {
 const rootReducer = combineReducers({
     auth: authReducer,
     alerts: alertsReducer,
+    websites: websiteReducer,
     brands: brandReducer,
     brandMappings: brandMappingReducer,
     brandImages: brandImagesReducer,

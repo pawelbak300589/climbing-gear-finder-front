@@ -18,6 +18,7 @@ import createBrandImageFormData from "../forms/create-brand-image-form.data";
 import createBrandMappingFormData from "../forms/create-brand-mapping-form.data";
 import createBrandUrlFormData from "../forms/create-brand-url-form.data";
 
+import { getAll } from "../../redux/website/website.actions";
 import {
     create as createUrlAction,
     getAllByBrandId as getAllUrlsByBrandId
@@ -30,13 +31,22 @@ import {
     create as createImageAction,
     getAllByBrandId as getAllImagesByBrandId
 } from "../../redux/brand-images/brand-images.actions";
+
 import { selectBrandMappingsExist } from "../../redux/brand-mapping/brand-mapping.selectors";
 import { selectBrandImageExist } from "../../redux/brand-images/brand-images.selectors";
 import { selectBrandUrlExist } from "../../redux/brand-urls/brand-urls.selectors";
+import { selectWebsitesList } from "../../redux/website/website.selectors";
 
 import './brand-details.styles.scss';
 
-const BrandDetails = ({ brand, brandMappingsExist, brandImagesExist, brandUrlsExist, getAllMappings, getAllImages, getAllUrls, createMapping, createImage, createUrl }) => {
+const BrandDetails = ({
+                          brand, websites, brandMappingsExist, brandImagesExist, brandUrlsExist, getAllWebsites,
+                          getAllMappings, getAllImages, getAllUrls, createMapping, createImage, createUrl
+                      }) => {
+    useEffect(() => {
+        getAllWebsites();
+    }, [getAllWebsites]);
+
     useEffect(() => {
         if (!brandMappingsExist) {
             getAllMappings(brand.id);
@@ -54,6 +64,17 @@ const BrandDetails = ({ brand, brandMappingsExist, brandImagesExist, brandUrlsEx
             getAllUrls(brand.id);
         }
     }, [brand, brandUrlsExist, getAllUrls]);
+
+    const getSelectWebsiteOptions = () => {
+        let websiteOptions = [];
+        if (websites) {
+            websiteOptions = websites.map(({ id, name }) => ({
+                value: id,
+                text: name
+            }));
+        }
+        return websiteOptions;
+    };
 
     return (
         <>
@@ -79,13 +100,13 @@ const BrandDetails = ({ brand, brandMappingsExist, brandImagesExist, brandUrlsEx
             <Container>
                 <Row>
                     <Col>
-                        <CustomInlineForm data={createBrandUrlFormData}
+                        <CustomInlineForm data={createBrandUrlFormData(getSelectWebsiteOptions())}
                                           onSubmit={(formData) => createUrl(brand.id, formData)} />
                     </Col>
                 </Row>
             </Container>
             <Break />
-            <UrlsListContainer brandId={brand.id} />
+            <UrlsListContainer brandId={brand.id} websites={websites} />
             <Break />
             <Container>
                 <Row>
@@ -116,9 +137,11 @@ const mapStateToProps = (state, ownProps) => ({
     brandMappingsExist: selectBrandMappingsExist(ownProps.brand.id)(state),
     brandImagesExist: selectBrandImageExist(ownProps.brand.id)(state),
     brandUrlsExist: selectBrandUrlExist(ownProps.brand.id)(state),
+    websites: selectWebsitesList(state),
 });
 
 const mapDispatchToProps = dispatch => ({
+    getAllWebsites: () => dispatch(getAll()),
     getAllMappings: (brandId) => dispatch(getAllMappingsByBrandId(brandId)),
     getAllImages: (brandId) => dispatch(getAllImagesByBrandId(brandId)),
     getAllUrls: (brandId) => dispatch(getAllUrlsByBrandId(brandId)),
