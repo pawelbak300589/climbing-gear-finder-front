@@ -25,7 +25,7 @@ const MappingsList = ({ brandId, brandMappings }) => {
                             {
                                 brandMappings && brandMappings.map((mapping) =>
                                     <ListItem key={mapping.id}
-                                              item={mapping}
+                                              mainText={mapping.name}
                                               actions={itemActions(mapping)} />)
                             }
                         </ListGroup>

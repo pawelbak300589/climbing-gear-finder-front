@@ -10,6 +10,7 @@ import ListItem from "../list-item/list-item.component";
 import UrlItemButtons from "../item-buttons/url-item-buttons.component";
 
 import { selectBrandUrlByBrandId } from "../../redux/brand-urls/brand-urls.selectors";
+import Badge from "react-bootstrap/Badge";
 
 const UrlsList = ({ brandId, brandUrls, websites }) => {
     const itemActions = ({ id, main }) => (
@@ -27,15 +28,16 @@ const UrlsList = ({ brandId, brandUrls, websites }) => {
                                         const itemText = () => {
                                             const currentWebsite = websites.find(website => website.id === url.website_id);
                                             if (currentWebsite) {
-                                                return url.url + ' (' + currentWebsite.name + ')';
+                                                return <>
+                                                    <Badge variant="info">{currentWebsite.name}</Badge>{' '}
+                                                    {url.main ? <Badge variant="warning">Main</Badge> : ''}{' '}
+                                                    <small>{url.url}</small>
+                                                </>;
                                             }
                                             return url.url;
                                         };
                                         return <ListItem key={url.id}
-                                                         item={{
-                                                             ...url,
-                                                             name: itemText()
-                                                         }} // TODO: add website name to item.name in bracets or something
+                                                         mainText={itemText()}
                                                          actions={itemActions(url)} />;
                                     }
                                 )

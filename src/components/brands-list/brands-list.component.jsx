@@ -27,7 +27,7 @@ const BrandsList = ({ match, brands }) => {
                         {
                             brands.map(brand => (
                                 <ListItem key={brand.id}
-                                          item={brand}
+                                          mainText={brand.name}
                                           to={`${match.path}show/${brand.id}`}
                                           actions={itemActions(brand)} />))
                         }

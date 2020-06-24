@@ -8,7 +8,7 @@ import CustomButton from "../custom-button/custom-button.component";
 
 import './list-item.styles.scss';
 
-const ListItem = ({ item, to, actions, ...otherProps }) => {
+const ListItem = ({ mainText, to, actions, ...otherProps }) => {
     return (
         <ListGroup.Item className="list-item" {...otherProps}>
             <Row>
@@ -19,13 +19,13 @@ const ListItem = ({ item, to, actions, ...otherProps }) => {
                                           to={to}
                                           variant="link"
                                           size="sm"
-                                          className="text-decoration-none">{item.name}</CustomButton>
+                                          className="text-decoration-none">{mainText}</CustomButton>
 
                             :
-                            item.name
+                            mainText
                     }
                 </Col>
-                <Col className="actions text-right">
+                <Col md lg="auto" className="actions text-right">
                     {actions}
                 </Col>
             </Row>
