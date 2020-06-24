@@ -40,7 +40,10 @@ const CustomForm = ({ data, onSubmit }) => {
                                 const renderElement = () => {
                                     if (type === 'select') {
                                         return (
-                                            <Form.Control as={type} name={otherData.name} onChange={handleChange}>
+                                            <Form.Control as={type}
+                                                          value={formData[otherData.name]}
+                                                          name={otherData.name}
+                                                          onChange={handleChange}>
                                                 {
                                                     options.map((option) =>
                                                         <option key={option.value}
@@ -49,12 +52,14 @@ const CustomForm = ({ data, onSubmit }) => {
                                             </Form.Control>
                                         );
                                     } else {
-                                        return <Form.Control value={formData[otherData.name]} type={type} {...otherData} onChange={handleChange} />;
+                                        return <Form.Control value={formData[otherData.name]}
+                                                             type={type} {...otherData}
+                                                             onChange={handleChange} />;
                                     }
                                 };
 
                                 return <Form.Group key={otherData.name} controlId={otherData.name}>
-                                    <Form.Label>{label}</Form.Label>
+                                    {label && <Form.Label>{label}</Form.Label>}
                                     {renderElement()}
                                 </Form.Group>;
                             })

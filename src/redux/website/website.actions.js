@@ -1,8 +1,8 @@
 import { websiteActionTypes } from "./website.types";
 import backend from "../../apis/backend";
-import { history, authHeader } from "../../helpers";
+import { authHeader } from "../../helpers";
 
-import { success, error as errorAlert } from "../alerts/alerts.actions";
+import { error as errorAlert } from "../alerts/alerts.actions";
 
 export const getAll = () => {
     const request = () => ({ type: websiteActionTypes.GETALL_REQUEST });

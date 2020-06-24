@@ -35,13 +35,13 @@ import {
 import { selectBrandMappingsExist } from "../../redux/brand-mapping/brand-mapping.selectors";
 import { selectBrandImageExist } from "../../redux/brand-images/brand-images.selectors";
 import { selectBrandUrlExist } from "../../redux/brand-urls/brand-urls.selectors";
-import { selectWebsitesList } from "../../redux/website/website.selectors";
+import { selectWebsiteOptions, selectWebsitesList } from "../../redux/website/website.selectors";
 
 import './brand-details.styles.scss';
 
 const BrandDetails = ({
-                          brand, websites, brandMappingsExist, brandImagesExist, brandUrlsExist, getAllWebsites,
-                          getAllMappings, getAllImages, getAllUrls, createMapping, createImage, createUrl
+                          brand, websites, websiteOptions, brandMappingsExist, brandImagesExist, brandUrlsExist,
+                          getAllWebsites, getAllMappings, getAllImages, getAllUrls, createMapping, createImage, createUrl
                       }) => {
     useEffect(() => {
         getAllWebsites();
@@ -64,17 +64,6 @@ const BrandDetails = ({
             getAllUrls(brand.id);
         }
     }, [brand, brandUrlsExist, getAllUrls]);
-
-    const getSelectWebsiteOptions = () => {
-        let websiteOptions = [];
-        if (websites) {
-            websiteOptions = websites.map(({ id, name }) => ({
-                value: id,
-                text: name
-            }));
-        }
-        return websiteOptions;
-    };
 
     return (
         <>
@@ -100,7 +89,7 @@ const BrandDetails = ({
             <Container>
                 <Row>
                     <Col>
-                        <CustomInlineForm data={createBrandUrlFormData(getSelectWebsiteOptions())}
+                        <CustomInlineForm data={createBrandUrlFormData(websiteOptions)}
                                           onSubmit={(formData) => createUrl(brand.id, formData)} />
                     </Col>
                 </Row>
@@ -138,6 +127,7 @@ const mapStateToProps = (state, ownProps) => ({
     brandImagesExist: selectBrandImageExist(ownProps.brand.id)(state),
     brandUrlsExist: selectBrandUrlExist(ownProps.brand.id)(state),
     websites: selectWebsitesList(state),
+    websiteOptions: selectWebsiteOptions(state),
 });
 
 const mapDispatchToProps = dispatch => ({

@@ -36,6 +36,7 @@ const CustomInlineForm = ({ data, onSubmit }) => {
                                 return (
                                     <Form.Control as={type}
                                                   id={otherData.name}
+                                                  value={formData[otherData.name]}
                                                   name={otherData.name}
                                                   onChange={handleChange}>
                                         {

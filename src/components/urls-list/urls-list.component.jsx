@@ -11,6 +11,7 @@ import UrlItemButtons from "../item-buttons/url-item-buttons.component";
 
 import { selectBrandUrlByBrandId } from "../../redux/brand-urls/brand-urls.selectors";
 import Badge from "react-bootstrap/Badge";
+import Button from "react-bootstrap/Button";
 
 const UrlsList = ({ brandId, brandUrls, websites }) => {
     const itemActions = ({ id, main }) => (
@@ -31,7 +32,7 @@ const UrlsList = ({ brandId, brandUrls, websites }) => {
                                                 return <>
                                                     <Badge variant="info">{currentWebsite.name}</Badge>{' '}
                                                     {url.main ? <Badge variant="warning">Main</Badge> : ''}{' '}
-                                                    <small>{url.url}</small>
+                                                    <Button variant="link" href={url.url} size="sm" target="_href">{url.url}</Button>
                                                 </>;
                                             }
                                             return url.url;

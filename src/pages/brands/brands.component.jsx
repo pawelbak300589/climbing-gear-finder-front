@@ -13,6 +13,9 @@ import DeleteBrandMappingPageContainer from "../brand-mapping/delete-brand-mappi
 import MainBrandImagePageContainer from "../brand-image/main-brand-image/main-brand-image.container";
 import EditBrandImagePageContainer from "../brand-image/edit-brand-image/edit-brand-image.container";
 import DeleteBrandImagePageContainer from "../brand-image/delete-brand-image/delete-brand-image.container";
+import MainBrandUrlPageContainer from "../brand-url/main-brand-url/main-brand-url.container";
+import EditBrandUrlPageContainer from "../brand-url/edit-brand-url/edit-brand-url.container";
+import DeleteBrandUrlPageContainer from "../brand-url/delete-brand-url/delete-brand-url.container";
 
 const BrandsPage = ({ match }) => {
 
@@ -32,6 +35,10 @@ const BrandsPage = ({ match }) => {
             <Route path={`${match.path}/:brandId/image/edit/:imageId`} component={EditBrandImagePageContainer} />
             <Route path={`${match.path}/:brandId/image/delete/:imageId`}
                    component={DeleteBrandImagePageContainer} />
+            <Route path={`${match.path}/:brandId/url/main/:urlId`} component={MainBrandUrlPageContainer} />
+            <Route path={`${match.path}/:brandId/url/edit/:urlId`} component={EditBrandUrlPageContainer} />
+            <Route path={`${match.path}/:brandId/url/delete/:urlId`}
+                   component={DeleteBrandUrlPageContainer} />
         </div>
     );
 };

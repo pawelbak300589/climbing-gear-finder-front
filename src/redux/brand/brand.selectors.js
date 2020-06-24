@@ -9,7 +9,7 @@ export const selectBrandsList = createSelector(
 
 export const selectBrand = (brandId) => createSelector(
     [selectBrandsList],
-    (items) => items.filter(item => item.id === Number(brandId))[0]
+    (items) => items.find(item => item.id === Number(brandId))
 );
 
 export const selectBrandsForSelectInput = (brandsToExclude) => createSelector(
