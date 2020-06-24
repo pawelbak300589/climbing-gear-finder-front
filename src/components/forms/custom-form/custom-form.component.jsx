@@ -40,7 +40,7 @@ const CustomForm = ({ data, onSubmit }) => {
                                 const renderElement = () => {
                                     if (type === 'select') {
                                         return (
-                                            <Form.Control as={type} name={otherData.name}>
+                                            <Form.Control as={type} name={otherData.name} onChange={handleChange}>
                                                 {
                                                     options.map((option) =>
                                                         <option key={option.value}

@@ -36,7 +36,8 @@ const CustomInlineForm = ({ data, onSubmit }) => {
                                 return (
                                     <Form.Control as={type}
                                                   id={otherData.name}
-                                                  name={otherData.name}>
+                                                  name={otherData.name}
+                                                  onChange={handleChange}>
                                         {
                                             options.map((option) =>
                                                 <option key={option.value}
