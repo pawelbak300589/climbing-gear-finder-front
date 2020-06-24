@@ -24,11 +24,17 @@ const UrlsList = ({ brandId, brandUrls, websites }) => {
                         <ListGroup variant="flush">
                             {
                                 brandUrls && brandUrls.map((url) => {
-                                        const websiteData = websites.find(website => website.id === url.website_id);
+                                        const itemText = () => {
+                                            const currentWebsite = websites.find(website => website.id === url.website_id);
+                                            if (currentWebsite) {
+                                                return url.url + ' (' + currentWebsite.name + ')';
+                                            }
+                                            return url.url;
+                                        };
                                         return <ListItem key={url.id}
                                                          item={{
                                                              ...url,
-                                                             name: url.url + ' (' + websiteData.name + ')'
+                                                             name: itemText()
                                                          }} // TODO: add website name to item.name in bracets or something
                                                          actions={itemActions(url)} />;
                                     }
