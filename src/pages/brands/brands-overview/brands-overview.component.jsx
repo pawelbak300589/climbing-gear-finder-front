@@ -9,12 +9,19 @@ import Container from "react-bootstrap/Container";
 import BrandsListContainer from "../../../components/brands-list/brands-list.container";
 import CustomBreadcrumb from "../../../components/custom-breadcrumb/custom-breadcrumb.component";
 import CustomButton from "../../../components/custom-button/custom-button.component";
+import ListMenu from "../../../components/list-menu/list-menu.component";
+
 import { brandsPageBreadcrumbItems } from "../../../components/custom-breadcrumb/custom-breadcrumb.data";
 
-import { getAll } from "../../../redux/brand/brand.actions";
-import { selectBrandsTotal, selectCurrentPage } from "../../../redux/brand/brand.selectors";
+import { changeItemsPerPage, getAll, updateSearchPhrase } from "../../../redux/brand/brand.actions";
+import {
+    selectBrandsTotal,
+    selectCurrentPage,
+    selectItemsPerPage,
+    selectSearch
+} from "../../../redux/brand/brand.selectors";
 
-const BrandsOverviewPage = ({ match, brandsTotal, currentPage, getAllBrands }) => {
+const BrandsOverviewPage = ({ match, brandsTotal, currentPage, itemsPerPage, search, getAllBrands, onSearchPhraseUpdate, onItemsPerPageChange }) => {
     useEffect(() => {
         getAllBrands();
     }, [getAllBrands]);
@@ -22,7 +29,7 @@ const BrandsOverviewPage = ({ match, brandsTotal, currentPage, getAllBrands }) =
     return (
         <div className="brands-overview-page">
             <CustomBreadcrumb items={brandsPageBreadcrumbItems} />
-            <Container className="brands-header py-3">
+            <Container className="brands-header pt-3">
                 <Row>
                     <Col>
                         <h2>Brands</h2>
@@ -41,6 +48,11 @@ const BrandsOverviewPage = ({ match, brandsTotal, currentPage, getAllBrands }) =
                     </Col>
                 </Row>
             </Container>
+            <ListMenu onItemsPerPageChange={(returnedItemsPerPage) => onItemsPerPageChange(returnedItemsPerPage)}
+                      onSearchPhraseSubmit={(searchData) => onSearchPhraseUpdate(searchData)}
+                      itemsPerPageInitial={itemsPerPage}
+                      searchInitial={search}
+            />
             <BrandsListContainer match={match} />
         </div>
     );
@@ -48,11 +60,15 @@ const BrandsOverviewPage = ({ match, brandsTotal, currentPage, getAllBrands }) =
 
 const mapStateToProps = createStructuredSelector({
     brandsTotal: selectBrandsTotal,
-    currentPage: selectCurrentPage
+    currentPage: selectCurrentPage,
+    itemsPerPage: selectItemsPerPage,
+    search: selectSearch,
 });
 
 const mapDispatchToProps = dispatch => ({
-    getAllBrands: () => dispatch(getAll())
+    getAllBrands: () => dispatch(getAll()),
+    onSearchPhraseUpdate: (searchData) => dispatch(updateSearchPhrase(searchData)),
+    onItemsPerPageChange: (itemsPerPage) => dispatch(changeItemsPerPage(itemsPerPage)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(BrandsOverviewPage);

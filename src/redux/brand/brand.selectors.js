@@ -36,3 +36,13 @@ export const selectBrandsTotal = createSelector(
     [selectPagination],
     (pagination) => pagination.total
 );
+
+export const selectItemsPerPage = createSelector(
+    [selectPagination],
+    (pagination) => pagination.per_page
+);
+
+export const selectSearch = createSelector(
+    [selectBrands],
+    (brands) => brands.search
+);

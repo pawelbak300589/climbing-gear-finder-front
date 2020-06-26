@@ -12,6 +12,10 @@ const INITIAL_STATE = {
         per_page: 25,
         total: 0
     },
+    search: {
+        phrase: '',
+        exact: false,
+    },
     error: null
 };
 
@@ -40,6 +44,10 @@ const brandReducer = (state = INITIAL_STATE, action) => {
                     per_page: action.payload.per_page,
                     total: action.payload.total,
                 },
+                search: {
+                    phrase: action.payload.search.phrase,
+                    exact: action.payload.search.exact,
+                },
                 error: null
             };
         case brandActionTypes.GETALL_FAILURE:
@@ -52,7 +60,11 @@ const brandReducer = (state = INITIAL_STATE, action) => {
                     current_page: 1,
                     last_page: 1,
                     per_page: 25,
-                    total: 0
+                    total: 0,
+                },
+                search: {
+                    phrase: '',
+                    exact: false,
                 },
                 error: action.payload
             };
@@ -110,6 +122,24 @@ const brandReducer = (state = INITIAL_STATE, action) => {
                 pagination: {
                     ...state.pagination,
                     current_page: action.payload,
+                },
+            };
+        case brandActionTypes.CHANGE_ITEMS_PER_PAGE:
+            return {
+                ...state,
+                pagination: {
+                    ...state.pagination,
+                    per_page: action.payload,
+                },
+            };
+        case brandActionTypes.UPDATE_SEARCH_PHRASE:
+            console.log(action.payload);
+            return {
+                ...state,
+                search: {
+                    ...state.search,
+                    phrase: action.payload.phrase,
+                    exact: action.payload.exact,
                 },
             };
         default:

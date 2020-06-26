@@ -6,7 +6,7 @@ import { success, error as errorAlert } from "../alerts/alerts.actions";
 
 export const getAll = () => {
     const request = () => ({ type: brandActionTypes.GETALL_REQUEST });
-    const successResult = (brands) => ({ type: brandActionTypes.GETALL_SUCCESS, payload: brands });
+    const successResult = (successData) => ({ type: brandActionTypes.GETALL_SUCCESS, payload: successData });
     const failureResult = (error) => ({ type: brandActionTypes.GETALL_FAILURE, payload: error });
 
     return async (dispatch, getState) => {
@@ -15,12 +15,18 @@ export const getAll = () => {
         await backend.get('/brands', {
             params: {
                 page: getState().brands.pagination.current_page,
-                per_page: getState().brands.pagination.per_page
+                per_page: getState().brands.pagination.per_page,
+                search_phrase: getState().brands.search.phrase,
+                search_exact: getState().brands.search.exact,
             },
             headers: authHeader(getState())
         })
             .then(({ data }) => {
-                dispatch(successResult(JSON.parse(data)));
+                const modifiedData = {
+                    ...JSON.parse(data),
+                    search: getState().brands.search,
+                };
+                dispatch(successResult(modifiedData));
             })
             .catch((error) => {
                 console.log(error.message);
@@ -183,6 +189,23 @@ export const convertToMapping = (id, parentId) => {
 export const changeCurrentPage = (page) => {
     return (dispatch) => {
         dispatch({ type: brandActionTypes.CHANGE_CURRENT_PAGE, payload: page });
+        dispatch(getAll());
+    };
+};
+
+export const changeItemsPerPage = (itemsPerPage) => {
+    return (dispatch) => {
+        dispatch({ type: brandActionTypes.CHANGE_ITEMS_PER_PAGE, payload: itemsPerPage });
+        dispatch(getAll());
+    };
+};
+
+export const updateSearchPhrase = (searchData) => {
+    return (dispatch) => {
+        dispatch({
+            type: brandActionTypes.UPDATE_SEARCH_PHRASE,
+            payload: { phrase: searchData.phrase, exact: searchData.exact }
+        });
         dispatch(getAll());
     };
 };
