@@ -168,6 +168,8 @@ export const convertToMapping = (id, parentId) => {
     return async (dispatch, getState) => {
         dispatch(request());
 
+        console.log(parentId);
+
         await backend.post('/brands/convert/' + id + '/to/' + parentId, [], {
             headers: authHeader(getState())
         })
