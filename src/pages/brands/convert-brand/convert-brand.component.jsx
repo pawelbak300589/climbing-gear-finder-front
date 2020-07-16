@@ -47,6 +47,7 @@ const ConvertBrandPage = ({ brand, brandsForSelect, convertBrandToMapping }) => 
                             <Form.Control name="parentId"
                                           as="select"
                                           onChange={(event) => setParentId(event.target.value)}>
+                                <option key="default" value="">Select parent Brand</option>
                                 {
                                     brandsForSelect.map(brandData =>
                                         <option key={brandData.id} value={brandData.id}>{brandData.name}</option>

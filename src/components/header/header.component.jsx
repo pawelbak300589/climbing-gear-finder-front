@@ -1,11 +1,16 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from "reselect";
-import Octicon, { Person, SignIn, SignOut, Bell } from '@primer/octicons-react';
 import { LinkContainer } from 'react-router-bootstrap';
 import Navbar from "react-bootstrap/Navbar";
 import Nav from "react-bootstrap/Nav";
 import NavDropdown from "react-bootstrap/NavDropdown";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faSignInAlt } from '@fortawesome/free-solid-svg-icons/faSignInAlt';
+import { faSignOutAlt } from '@fortawesome/free-solid-svg-icons/faSignOutAlt';
+import { faUser } from '@fortawesome/free-solid-svg-icons/faUser';
+import { faUserPlus } from '@fortawesome/free-solid-svg-icons/faUserPlus';
+import { faBell } from '@fortawesome/free-solid-svg-icons/faBell';
 
 import CustomNavbar from "../navbar/custom-navbar";
 
@@ -38,7 +43,7 @@ const Header = ({ currentUser, logout }) => {
                             <CustomNavbar currentUser={currentUser} />
                             <Nav>
                                 <NavDropdown alignRight
-                                             title={<><Octicon icon={Bell} /></>}
+                                             title={<><FontAwesomeIcon icon={faBell} /></>}
                                              id="collasible-nav-dropdown">
                                     <LinkContainer to="/notifications">
                                         <Nav.Link> Show all</Nav.Link>
@@ -47,14 +52,14 @@ const Header = ({ currentUser, logout }) => {
                             </Nav>
                             <Nav>
                                 <NavDropdown alignRight
-                                             title={<><Octicon icon={Person} /> {currentUser.name}</>}
+                                             title={<><FontAwesomeIcon icon={faUser} /> {currentUser.name}</>}
                                              id="collasible-nav-dropdown">
                                     <LinkContainer to="/profile">
                                         <Nav.Link> Profile</Nav.Link>
                                     </LinkContainer>
                                     <NavDropdown.Divider />
                                     <Nav.Link onClick={logout}>
-                                        <Octicon icon={SignOut} /> Logout
+                                        <FontAwesomeIcon icon={faSignOutAlt} /> Logout
                                     </Nav.Link>
                                 </NavDropdown>
                             </Nav>
@@ -66,8 +71,8 @@ const Header = ({ currentUser, logout }) => {
                                 <LinkContainer to="/about"><Nav.Link>About</Nav.Link></LinkContainer>
                             </Nav>
                             <Nav>
-                                <LinkContainer to="/login"><Nav.Link><Octicon icon={SignIn} /> Login</Nav.Link></LinkContainer>
-                                <LinkContainer to="/register"><Nav.Link>Register</Nav.Link></LinkContainer>
+                                <LinkContainer to="/login"><Nav.Link><FontAwesomeIcon icon={faSignInAlt} /> Login</Nav.Link></LinkContainer>
+                                <LinkContainer to="/register"><Nav.Link><FontAwesomeIcon icon={faUserPlus} /> Register</Nav.Link></LinkContainer>
                             </Nav>
                         </>
                 }
