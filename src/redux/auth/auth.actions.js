@@ -12,31 +12,28 @@ export const login = (userLoginCredentials) => {
 
         await backend.post('/auth/login', userLoginCredentials)
             .then(({ data }) => {
-                console.log(data);
+                // console.log(data);
                 dispatch(success(data));
                 history.push('/dashboard');
             })
             .catch((error) => {
-                console.log(error.message);
+                // console.log(error.message);
                 dispatch(failure(error.message));
             });
     };
 };
 
-export const logout = () => {
-
-    return async (dispatch, getState) => {
-        await backend.get('/auth/logout', {
-            headers: authHeader(getState())
+export const logout = () => async (dispatch, getState) => {
+    await backend.get('/auth/logout', {
+        headers: authHeader(getState())
+    })
+        .then(({ data }) => {
+            dispatch({ type: authActionTypes.LOGOUT });
+            history.push('/');
         })
-            .then(({ data }) => {
-                dispatch({ type: authActionTypes.LOGIN_REQUEST, payload: data });
-                history.push('/');
-            })
-            .catch((error) => {
-                console.log(error.message);
-            });
-    };
+        .catch((error) => {
+            console.log(error.message);
+        });
 };
 
 export const register = (userRegisterCredentials) => {
@@ -53,7 +50,7 @@ export const register = (userRegisterCredentials) => {
                 history.push('/');
             })
             .catch((error) => {
-                console.log(error.message);
+                // console.log(error.message);
                 dispatch(failure(error.message));
             });
     };
