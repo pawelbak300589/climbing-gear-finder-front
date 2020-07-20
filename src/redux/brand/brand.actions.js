@@ -134,7 +134,7 @@ export const remove = (id) => {
 
 export const blacklist = (id) => {
     const request = () => ({ type: brandActionTypes.BLACKLIST_REQUEST });
-    const successResult = (brand) => ({ type: brandActionTypes.BLACKLIST_SUCCESS, payload: brand });
+    const successResult = (brand) => ({ type: brandActionTypes.BLACKLIST_SUCCESS, payload: id });
     const failureResult = (error) => ({ type: brandActionTypes.BLACKLIST_FAILURE, payload: error });
 
     return async (dispatch, getState) => {

@@ -51,7 +51,6 @@ const brandReducer = (state = INITIAL_STATE, action) => {
                 error: null
             };
         case brandActionTypes.GETALL_FAILURE:
-        case brandActionTypes.GETONE_FAILURE:
             return {
                 ...state,
                 loading: false,
@@ -93,19 +92,14 @@ const brandReducer = (state = INITIAL_STATE, action) => {
                 error: null
             };
         case brandActionTypes.DELETE_SUCCESS:
+        case brandActionTypes.BLACKLIST_SUCCESS:
             return {
                 ...state,
                 loading: false,
                 items: state.items.filter((item) => item.id !== action.payload),
                 error: null
             };
-        case brandActionTypes.BLACKLIST_SUCCESS:
-            return {
-                ...state,
-                loading: false,
-                items: state.items.filter((item) => item.id !== action.payload.id),
-                error: null
-            };
+        case brandActionTypes.GETONE_FAILURE:
         case brandActionTypes.CREATE_FAILURE:
         case brandActionTypes.UPDATE_FAILURE:
         case brandActionTypes.DELETE_FAILURE:
