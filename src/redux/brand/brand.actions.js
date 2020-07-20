@@ -23,7 +23,8 @@ export const getAll = () => {
         })
             .then(({ data }) => {
                 const modifiedData = {
-                    ...JSON.parse(data),
+                    ...data,
+                    // ...JSON.parse(data), // TODO: should it by parsed? check it!
                     search: getState().brands.search,
                 };
                 dispatch(successResult(modifiedData));
